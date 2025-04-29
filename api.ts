@@ -1252,7 +1252,7 @@ export interface EducationUser {
      */
     'identities'?: Array<ObjectIdentity>;
     /**
-     * The SMTP address for the user, for example, \'jeff@contoso.onowncloud.com\'. Returned by default.
+     * The SMTP address for the user, for example, \'jeff@contoso.opencloud.com\'. Returned by default.
      * @type {string}
      * @memberof EducationUser
      */
@@ -2439,7 +2439,7 @@ export interface User {
      */
     'identities'?: Array<ObjectIdentity>;
     /**
-     * The SMTP address for the user, for example, \'jeff@contoso.onowncloud.com\'. Returned by default.
+     * The SMTP address for the user, for example, \'jeff@contoso.opencloud.com\'. Returned by default.
      * @type {string}
      * @memberof User
      */
@@ -2542,7 +2542,7 @@ export interface UserUpdate {
      */
     'identities'?: Array<ObjectIdentity>;
     /**
-     * The SMTP address for the user, for example, \'jeff@contoso.onowncloud.com\'. Returned by default.
+     * The SMTP address for the user, for example, \'jeff@contoso.opencloud.com\'. Returned by default.
      * @type {string}
      * @memberof UserUpdate
      */
@@ -3333,12 +3333,11 @@ export const DrivesApiAxiosParamCreator = function (configuration?: Configuratio
             // http basic authentication required
             setBasicAuthToObject(localVarRequestOptions, configuration)
 
+
+    
             if (ifMatch != null) {
                 localVarHeaderParameter['If-Match'] = String(ifMatch);
             }
-
-
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -7659,12 +7658,11 @@ export const GroupApiAxiosParamCreator = function (configuration?: Configuration
             // http basic authentication required
             setBasicAuthToObject(localVarRequestOptions, configuration)
 
+
+    
             if (ifMatch != null) {
                 localVarHeaderParameter['If-Match'] = String(ifMatch);
             }
-
-
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -7708,12 +7706,11 @@ export const GroupApiAxiosParamCreator = function (configuration?: Configuration
             // http basic authentication required
             setBasicAuthToObject(localVarRequestOptions, configuration)
 
+
+    
             if (ifMatch != null) {
                 localVarHeaderParameter['If-Match'] = String(ifMatch);
             }
-
-
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -9834,12 +9831,11 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             // http basic authentication required
             setBasicAuthToObject(localVarRequestOptions, configuration)
 
+
+    
             if (ifMatch != null) {
                 localVarHeaderParameter['If-Match'] = String(ifMatch);
             }
-
-
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -10287,12 +10283,11 @@ export const UserAppRoleAssignmentApiAxiosParamCreator = function (configuration
             // http basic authentication required
             setBasicAuthToObject(localVarRequestOptions, configuration)
 
+
+    
             if (ifMatch != null) {
                 localVarHeaderParameter['If-Match'] = String(ifMatch);
             }
-
-
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
