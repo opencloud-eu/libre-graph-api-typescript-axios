@@ -71,6 +71,7 @@ docs/MeDriveApi.md
 docs/MeDriveRootApi.md
 docs/MeDriveRootChildrenApi.md
 docs/MeDrivesApi.md
+docs/MePhotoApi.md
 docs/MeUserApi.md
 docs/MemberReference.md
 docs/ObjectIdentity.md
@@ -103,6 +104,7 @@ docs/UnifiedRolePermission.md
 docs/User.md
 docs/UserApi.md
 docs/UserAppRoleAssignmentApi.md
+docs/UserPhotoApi.md
 docs/UserUpdate.md
 docs/UsersApi.md
 docs/Video.md

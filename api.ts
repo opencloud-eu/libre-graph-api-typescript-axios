@@ -9160,6 +9160,331 @@ export class MeDrivesApi extends BaseAPI {
 
 
 /**
+ * MePhotoApi - axios parameter creator
+ * @export
+ */
+export const MePhotoApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Delete the current user\'s profile photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteOwnUserPhoto: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1.0/me/photo/$value`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get the current user\'s profile photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOwnUserPhoto: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1.0/me/photo/$value`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update the current user\'s profile photo
+         * @param {File} [body] New user photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateOwnUserPhotoPatch: async (body?: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1.0/me/photo/$value`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'image/jpeg';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update the current user\'s profile photo
+         * @param {File} [body] New user photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateOwnUserPhotoPut: async (body?: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1.0/me/photo/$value`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'image/jpeg';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * MePhotoApi - functional programming interface
+ * @export
+ */
+export const MePhotoApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = MePhotoApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Delete the current user\'s profile photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteOwnUserPhoto(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteOwnUserPhoto(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MePhotoApi.deleteOwnUserPhoto']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get the current user\'s profile photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getOwnUserPhoto(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOwnUserPhoto(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MePhotoApi.getOwnUserPhoto']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update the current user\'s profile photo
+         * @param {File} [body] New user photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateOwnUserPhotoPatch(body?: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOwnUserPhotoPatch(body, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MePhotoApi.updateOwnUserPhotoPatch']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update the current user\'s profile photo
+         * @param {File} [body] New user photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateOwnUserPhotoPut(body?: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOwnUserPhotoPut(body, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MePhotoApi.updateOwnUserPhotoPut']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * MePhotoApi - factory interface
+ * @export
+ */
+export const MePhotoApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = MePhotoApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Delete the current user\'s profile photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteOwnUserPhoto(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteOwnUserPhoto(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get the current user\'s profile photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOwnUserPhoto(options?: RawAxiosRequestConfig): AxiosPromise<File> {
+            return localVarFp.getOwnUserPhoto(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update the current user\'s profile photo
+         * @param {File} [body] New user photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateOwnUserPhotoPatch(body?: File, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateOwnUserPhotoPatch(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update the current user\'s profile photo
+         * @param {File} [body] New user photo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateOwnUserPhotoPut(body?: File, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateOwnUserPhotoPut(body, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * MePhotoApi - object-oriented interface
+ * @export
+ * @class MePhotoApi
+ * @extends {BaseAPI}
+ */
+export class MePhotoApi extends BaseAPI {
+    /**
+     * 
+     * @summary Delete the current user\'s profile photo
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MePhotoApi
+     */
+    public deleteOwnUserPhoto(options?: RawAxiosRequestConfig) {
+        return MePhotoApiFp(this.configuration).deleteOwnUserPhoto(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get the current user\'s profile photo
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MePhotoApi
+     */
+    public getOwnUserPhoto(options?: RawAxiosRequestConfig) {
+        return MePhotoApiFp(this.configuration).getOwnUserPhoto(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update the current user\'s profile photo
+     * @param {File} [body] New user photo
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MePhotoApi
+     */
+    public updateOwnUserPhotoPatch(body?: File, options?: RawAxiosRequestConfig) {
+        return MePhotoApiFp(this.configuration).updateOwnUserPhotoPatch(body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update the current user\'s profile photo
+     * @param {File} [body] New user photo
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MePhotoApi
+     */
+    public updateOwnUserPhotoPut(body?: File, options?: RawAxiosRequestConfig) {
+        return MePhotoApiFp(this.configuration).updateOwnUserPhotoPut(body, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * MeUserApi - axios parameter creator
  * @export
  */
@@ -10479,6 +10804,120 @@ export class UserAppRoleAssignmentApi extends BaseAPI {
      */
     public userListAppRoleAssignments(userId: string, options?: RawAxiosRequestConfig) {
         return UserAppRoleAssignmentApiFp(this.configuration).userListAppRoleAssignments(userId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * UserPhotoApi - axios parameter creator
+ * @export
+ */
+export const UserPhotoApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Get the photo of a user
+         * @param {string} userId key: id or name of user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserPhoto: async (userId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('getUserPhoto', 'userId', userId)
+            const localVarPath = `/v1.0/users/{user-id}/photo/$value`
+                .replace(`{${"user-id"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserPhotoApi - functional programming interface
+ * @export
+ */
+export const UserPhotoApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserPhotoApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Get the photo of a user
+         * @param {string} userId key: id or name of user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserPhoto(userId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserPhoto(userId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserPhotoApi.getUserPhoto']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * UserPhotoApi - factory interface
+ * @export
+ */
+export const UserPhotoApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserPhotoApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Get the photo of a user
+         * @param {string} userId key: id or name of user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserPhoto(userId: string, options?: RawAxiosRequestConfig): AxiosPromise<File> {
+            return localVarFp.getUserPhoto(userId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UserPhotoApi - object-oriented interface
+ * @export
+ * @class UserPhotoApi
+ * @extends {BaseAPI}
+ */
+export class UserPhotoApi extends BaseAPI {
+    /**
+     * 
+     * @summary Get the photo of a user
+     * @param {string} userId key: id or name of user
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserPhotoApi
+     */
+    public getUserPhoto(userId: string, options?: RawAxiosRequestConfig) {
+        return UserPhotoApiFp(this.configuration).getUserPhoto(userId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
