@@ -78,10 +78,12 @@ const apiInstance = new DrivesGetDrivesApi(configuration);
 
 let $orderby: string; //The $orderby system query option allows clients to request resources in either ascending order using asc or descending order using desc. (optional) (default to undefined)
 let $filter: string; //Filter items by property values (optional) (default to undefined)
+let $expand: string; //Expand related entities (optional) (default to undefined)
 
 const { status, data } = await apiInstance.listAllDrivesBeta(
     $orderby,
-    $filter
+    $filter,
+    $expand
 );
 ```
 
@@ -91,6 +93,7 @@ const { status, data } = await apiInstance.listAllDrivesBeta(
 |------------- | ------------- | ------------- | -------------|
 | **$orderby** | [**string**] | The $orderby system query option allows clients to request resources in either ascending order using asc or descending order using desc. | (optional) defaults to undefined|
 | **$filter** | [**string**] | Filter items by property values | (optional) defaults to undefined|
+| **$expand** | [**string**] | Expand related entities | (optional) defaults to undefined|
 
 
 ### Return type
