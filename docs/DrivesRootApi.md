@@ -365,11 +365,15 @@ const apiInstance = new DrivesRootApi(configuration);
 let driveId: string; //key: id of drive (default to undefined)
 let $filter: string; //Filter items by property values. By default all permissions are returned and the avalable sharing roles are limited to normal users. To get a list of sharing roles applicable to federated users use the example $select query and combine it with $filter to omit the list of permissions. (optional) (default to undefined)
 let $select: Set<'@libre.graph.permissions.actions.allowedValues' | '@libre.graph.permissions.roles.allowedValues' | 'value'>; //Select properties to be returned. By default all properties are returned. Select the roles property to fetch the available sharing roles without resolving all the permissions. Combine this with the $filter parameter to fetch the actions applicable to federated users. (optional) (default to undefined)
+let $count: boolean; //Include count of items (optional) (default to undefined)
+let $top: number; //Show only the first n items (optional) (default to undefined)
 
 const { status, data } = await apiInstance.listPermissionsSpaceRoot(
     driveId,
     $filter,
-    $select
+    $select,
+    $count,
+    $top
 );
 ```
 
@@ -380,6 +384,8 @@ const { status, data } = await apiInstance.listPermissionsSpaceRoot(
 | **driveId** | [**string**] | key: id of drive | defaults to undefined|
 | **$filter** | [**string**] | Filter items by property values. By default all permissions are returned and the avalable sharing roles are limited to normal users. To get a list of sharing roles applicable to federated users use the example $select query and combine it with $filter to omit the list of permissions. | (optional) defaults to undefined|
 | **$select** | **Array<&#39;@libre.graph.permissions.actions.allowedValues&#39; &#124; &#39;@libre.graph.permissions.roles.allowedValues&#39; &#124; &#39;value&#39;>** | Select properties to be returned. By default all properties are returned. Select the roles property to fetch the available sharing roles without resolving all the permissions. Combine this with the $filter parameter to fetch the actions applicable to federated users. | (optional) defaults to undefined|
+| **$count** | [**boolean**] | Include count of items | (optional) defaults to undefined|
+| **$top** | [**number**] | Show only the first n items | (optional) defaults to undefined|
 
 
 ### Return type
