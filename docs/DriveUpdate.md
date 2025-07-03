@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **items** | [**Array&lt;DriveItem&gt;**](DriveItem.md) | All items contained in the drive. Read-only. Nullable. | [optional] [readonly] [default to undefined]
 **root** | [**DriveItem**](DriveItem.md) |  | [optional] [default to undefined]
 **special** | [**Array&lt;DriveItem&gt;**](DriveItem.md) | A collection of special drive resources. | [optional] [default to undefined]
+**libre_graph_hasTrashedItems** | **boolean** | Indicates whether the drive has items in the trash. Read-only. | [optional] [readonly] [default to undefined]
 
 ## Example
 
@@ -47,6 +48,7 @@ const instance: DriveUpdate = {
     items,
     root,
     special,
+    libre_graph_hasTrashedItems,
 };
 ```
 
