@@ -79,11 +79,13 @@ const apiInstance = new MeDrivesApi(configuration);
 let $orderby: string; //The $orderby system query option allows clients to request resources in either ascending order using asc or descending order using desc. (optional) (default to undefined)
 let $filter: string; //Filter items by property values (optional) (default to undefined)
 let $expand: string; //Expand related entities (optional) (default to undefined)
+let $select: Set<'@libre.graph.hasTrashedItems'>; //Select properties to be returned. By default all properties are returned. (optional) (default to undefined)
 
 const { status, data } = await apiInstance.listMyDrivesBeta(
     $orderby,
     $filter,
-    $expand
+    $expand,
+    $select
 );
 ```
 
@@ -94,6 +96,7 @@ const { status, data } = await apiInstance.listMyDrivesBeta(
 | **$orderby** | [**string**] | The $orderby system query option allows clients to request resources in either ascending order using asc or descending order using desc. | (optional) defaults to undefined|
 | **$filter** | [**string**] | Filter items by property values | (optional) defaults to undefined|
 | **$expand** | [**string**] | Expand related entities | (optional) defaults to undefined|
+| **$select** | **Array<&#39;@libre.graph.hasTrashedItems&#39;>** | Select properties to be returned. By default all properties are returned. | (optional) defaults to undefined|
 
 
 ### Return type

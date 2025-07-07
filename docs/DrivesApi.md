@@ -131,9 +131,11 @@ const configuration = new Configuration();
 const apiInstance = new DrivesApi(configuration);
 
 let driveId: string; //key: id of drive (default to undefined)
+let $select: Set<'@libre.graph.hasTrashedItems'>; //Select properties to be returned. By default all properties are returned. (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getDrive(
-    driveId
+    driveId,
+    $select
 );
 ```
 
@@ -142,6 +144,7 @@ const { status, data } = await apiInstance.getDrive(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **driveId** | [**string**] | key: id of drive | defaults to undefined|
+| **$select** | **Array<&#39;@libre.graph.hasTrashedItems&#39;>** | Select properties to be returned. By default all properties are returned. | (optional) defaults to undefined|
 
 
 ### Return type
