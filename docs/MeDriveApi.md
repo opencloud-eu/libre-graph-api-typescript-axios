@@ -68,11 +68,18 @@ import {
 const configuration = new Configuration();
 const apiInstance = new MeDriveApi(configuration);
 
-const { status, data } = await apiInstance.listSharedByMe();
+let $expand: Set<'thumbnails'>; //Expand related entities (optional) (default to undefined)
+
+const { status, data } = await apiInstance.listSharedByMe(
+    $expand
+);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **$expand** | **Array<&#39;thumbnails&#39;>** | Expand related entities | (optional) defaults to undefined|
 
 
 ### Return type
@@ -113,11 +120,18 @@ import {
 const configuration = new Configuration();
 const apiInstance = new MeDriveApi(configuration);
 
-const { status, data } = await apiInstance.listSharedWithMe();
+let $expand: Set<'thumbnails'>; //Expand related entities (optional) (default to undefined)
+
+const { status, data } = await apiInstance.listSharedWithMe(
+    $expand
+);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **$expand** | **Array<&#39;thumbnails&#39;>** | Expand related entities | (optional) defaults to undefined|
 
 
 ### Return type
