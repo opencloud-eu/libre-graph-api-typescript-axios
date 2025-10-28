@@ -1264,6 +1264,12 @@ export interface EducationUser {
      */
     'drive'?: Drive;
     /**
+     * An external unique ID for the user. Use it to associate a user in another system, such as a student or employee ID number.
+     * @type {string}
+     * @memberof EducationUser
+     */
+    'externalId'?: string;
+    /**
      * Identities associated with this account.
      * @type {Array<ObjectIdentity>}
      * @memberof EducationUser
@@ -7253,9 +7259,9 @@ export const EducationUserApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * 
+         * Deletes an education user by their internal ID.  **To delete by external ID:** If you only have an external ID, you must first retrieve the user\'s internal ID: 1. Call `GET /graph/v1.0/education/users?$filter=externalId eq \'{value}\'` 2. Extract the `id` from the response 3. Use that `id` in this DELETE endpoint  See the [ListEducationUsers](#/educationUser/ListEducationUsers) operation for query details. 
          * @summary Delete educationUser
-         * @param {string} userId key: id or username of user
+         * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user  with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60;  to retrieve the internal ID. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7334,14 +7340,15 @@ export const EducationUserApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * 
+         * Retrieves a collection of education users with optional filtering, ordering, and expansion.  **Filtering by external ID:** Use `$filter` to query users by their external identifier, for example: `$filter=externalId eq \'EX12345\'` 
          * @summary Get entities from education users
+         * @param {string} [$filter] Filter items by property values. Supports a subset of OData filter expressions.  **Supported filters:** - By external ID: &#x60;externalId eq \&#39;ext_12345\&#39;&#x60; 
          * @param {Set<ListEducationUsersOrderbyEnum>} [$orderby] Order items by property values
          * @param {Set<ListEducationUsersExpandEnum>} [$expand] Expand related entities
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listEducationUsers: async ($orderby?: Set<ListEducationUsersOrderbyEnum>, $expand?: Set<ListEducationUsersExpandEnum>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listEducationUsers: async ($filter?: string, $orderby?: Set<ListEducationUsersOrderbyEnum>, $expand?: Set<ListEducationUsersExpandEnum>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1.0/education/users`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7357,6 +7364,10 @@ export const EducationUserApiAxiosParamCreator = function (configuration?: Confi
             // authentication bearerAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if ($filter !== undefined) {
+                localVarQueryParameter['$filter'] = $filter;
+            }
 
             if ($orderby) {
                 localVarQueryParameter['$orderby'] = Array.from($orderby).join(COLLECTION_FORMATS.csv);
@@ -7445,9 +7456,9 @@ export const EducationUserApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
+         * Deletes an education user by their internal ID.  **To delete by external ID:** If you only have an external ID, you must first retrieve the user\'s internal ID: 1. Call `GET /graph/v1.0/education/users?$filter=externalId eq \'{value}\'` 2. Extract the `id` from the response 3. Use that `id` in this DELETE endpoint  See the [ListEducationUsers](#/educationUser/ListEducationUsers) operation for query details. 
          * @summary Delete educationUser
-         * @param {string} userId key: id or username of user
+         * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user  with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60;  to retrieve the internal ID. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7472,15 +7483,16 @@ export const EducationUserApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
+         * Retrieves a collection of education users with optional filtering, ordering, and expansion.  **Filtering by external ID:** Use `$filter` to query users by their external identifier, for example: `$filter=externalId eq \'EX12345\'` 
          * @summary Get entities from education users
+         * @param {string} [$filter] Filter items by property values. Supports a subset of OData filter expressions.  **Supported filters:** - By external ID: &#x60;externalId eq \&#39;ext_12345\&#39;&#x60; 
          * @param {Set<ListEducationUsersOrderbyEnum>} [$orderby] Order items by property values
          * @param {Set<ListEducationUsersExpandEnum>} [$expand] Expand related entities
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listEducationUsers($orderby?: Set<ListEducationUsersOrderbyEnum>, $expand?: Set<ListEducationUsersExpandEnum>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionOfEducationUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listEducationUsers($orderby, $expand, options);
+        async listEducationUsers($filter?: string, $orderby?: Set<ListEducationUsersOrderbyEnum>, $expand?: Set<ListEducationUsersExpandEnum>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionOfEducationUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listEducationUsers($filter, $orderby, $expand, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EducationUserApi.listEducationUsers']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7520,9 +7532,9 @@ export const EducationUserApiFactory = function (configuration?: Configuration, 
             return localVarFp.createEducationUser(educationUser, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Deletes an education user by their internal ID.  **To delete by external ID:** If you only have an external ID, you must first retrieve the user\'s internal ID: 1. Call `GET /graph/v1.0/education/users?$filter=externalId eq \'{value}\'` 2. Extract the `id` from the response 3. Use that `id` in this DELETE endpoint  See the [ListEducationUsers](#/educationUser/ListEducationUsers) operation for query details. 
          * @summary Delete educationUser
-         * @param {string} userId key: id or username of user
+         * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user  with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60;  to retrieve the internal ID. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7541,15 +7553,16 @@ export const EducationUserApiFactory = function (configuration?: Configuration, 
             return localVarFp.getEducationUser(userId, $expand, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Retrieves a collection of education users with optional filtering, ordering, and expansion.  **Filtering by external ID:** Use `$filter` to query users by their external identifier, for example: `$filter=externalId eq \'EX12345\'` 
          * @summary Get entities from education users
+         * @param {string} [$filter] Filter items by property values. Supports a subset of OData filter expressions.  **Supported filters:** - By external ID: &#x60;externalId eq \&#39;ext_12345\&#39;&#x60; 
          * @param {Set<ListEducationUsersOrderbyEnum>} [$orderby] Order items by property values
          * @param {Set<ListEducationUsersExpandEnum>} [$expand] Expand related entities
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listEducationUsers($orderby?: Set<ListEducationUsersOrderbyEnum>, $expand?: Set<ListEducationUsersExpandEnum>, options?: RawAxiosRequestConfig): AxiosPromise<CollectionOfEducationUser> {
-            return localVarFp.listEducationUsers($orderby, $expand, options).then((request) => request(axios, basePath));
+        listEducationUsers($filter?: string, $orderby?: Set<ListEducationUsersOrderbyEnum>, $expand?: Set<ListEducationUsersExpandEnum>, options?: RawAxiosRequestConfig): AxiosPromise<CollectionOfEducationUser> {
+            return localVarFp.listEducationUsers($filter, $orderby, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7585,9 +7598,9 @@ export class EducationUserApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Deletes an education user by their internal ID.  **To delete by external ID:** If you only have an external ID, you must first retrieve the user\'s internal ID: 1. Call `GET /graph/v1.0/education/users?$filter=externalId eq \'{value}\'` 2. Extract the `id` from the response 3. Use that `id` in this DELETE endpoint  See the [ListEducationUsers](#/educationUser/ListEducationUsers) operation for query details. 
      * @summary Delete educationUser
-     * @param {string} userId key: id or username of user
+     * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user  with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60;  to retrieve the internal ID. 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationUserApi
@@ -7610,16 +7623,17 @@ export class EducationUserApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Retrieves a collection of education users with optional filtering, ordering, and expansion.  **Filtering by external ID:** Use `$filter` to query users by their external identifier, for example: `$filter=externalId eq \'EX12345\'` 
      * @summary Get entities from education users
+     * @param {string} [$filter] Filter items by property values. Supports a subset of OData filter expressions.  **Supported filters:** - By external ID: &#x60;externalId eq \&#39;ext_12345\&#39;&#x60; 
      * @param {Set<ListEducationUsersOrderbyEnum>} [$orderby] Order items by property values
      * @param {Set<ListEducationUsersExpandEnum>} [$expand] Expand related entities
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationUserApi
      */
-    public listEducationUsers($orderby?: Set<ListEducationUsersOrderbyEnum>, $expand?: Set<ListEducationUsersExpandEnum>, options?: RawAxiosRequestConfig) {
-        return EducationUserApiFp(this.configuration).listEducationUsers($orderby, $expand, options).then((request) => request(this.axios, this.basePath));
+    public listEducationUsers($filter?: string, $orderby?: Set<ListEducationUsersOrderbyEnum>, $expand?: Set<ListEducationUsersExpandEnum>, options?: RawAxiosRequestConfig) {
+        return EducationUserApiFp(this.configuration).listEducationUsers($filter, $orderby, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

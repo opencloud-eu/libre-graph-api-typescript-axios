@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **displayName** | **string** | The name displayed in the address book for the user. This value is usually the combination of the user\&#39;s first name, middle initial, and last name. This property is required when a user is created and it cannot be cleared during updates. Returned by default. Supports $orderby. | [optional] [default to undefined]
 **drives** | [**Array&lt;Drive&gt;**](Drive.md) | A collection of drives available for this user. Read-only. | [optional] [readonly] [default to undefined]
 **drive** | [**Drive**](Drive.md) |  | [optional] [default to undefined]
+**externalId** | **string** | An external unique ID for the user. Use it to associate a user in another system, such as a student or employee ID number. | [optional] [default to undefined]
 **identities** | [**Array&lt;ObjectIdentity&gt;**](ObjectIdentity.md) | Identities associated with this account. | [optional] [default to undefined]
 **mail** | **string** | The SMTP address for the user, for example, \&#39;jeff@contoso.opencloud.com\&#39;. Returned by default. | [optional] [default to undefined]
 **memberOf** | [**Array&lt;Group&gt;**](Group.md) | Groups that this user is a member of. HTTP Methods: GET (supported for all groups). Read-only. Nullable. Supports $expand. | [optional] [default to undefined]
@@ -32,6 +33,7 @@ const instance: EducationUser = {
     displayName,
     drives,
     drive,
+    externalId,
     identities,
     mail,
     memberOf,
