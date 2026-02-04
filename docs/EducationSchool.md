@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **id** | **string** | The unique identifier for an entity. Read-only. | [optional] [readonly] [default to undefined]
 **displayName** | **string** | The organization name | [optional] [default to undefined]
 **schoolNumber** | **string** | School number | [optional] [default to undefined]
+**externalId** | **string** | External identifier of the school | [optional] [default to undefined]
 **terminationDate** | **string** | Date and time at which the service for this organization is scheduled to be terminated | [optional] [default to undefined]
 
 ## Example
@@ -20,6 +21,7 @@ const instance: EducationSchool = {
     id,
     displayName,
     schoolNumber,
+    externalId,
     terminationDate,
 };
 ```

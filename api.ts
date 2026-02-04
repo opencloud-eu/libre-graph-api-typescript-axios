@@ -1221,6 +1221,12 @@ export interface EducationSchool {
      */
     'schoolNumber'?: string;
     /**
+     * External identifier of the school
+     * @type {string}
+     * @memberof EducationSchool
+     */
+    'externalId'?: string;
+    /**
      * Date and time at which the service for this organization is scheduled to be terminated
      * @type {string}
      * @memberof EducationSchool
