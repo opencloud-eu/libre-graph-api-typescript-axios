@@ -60,7 +60,7 @@ const { status, data } = await apiInstance.getPermissionRoleDefinition(
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **listPermissionRoleDefinitions**
-> UnifiedRoleDefinition listPermissionRoleDefinitions()
+> Array<UnifiedRoleDefinition> listPermissionRoleDefinitions()
 
 Get a list of `unifiedRoleDefinition` objects for the permissions provider. This list determines the roles that can be selected when creating sharing invites. 
 
@@ -84,7 +84,7 @@ This endpoint does not have any parameters.
 
 ### Return type
 
-**UnifiedRoleDefinition**
+**Array<UnifiedRoleDefinition>**
 
 ### Authorization
 

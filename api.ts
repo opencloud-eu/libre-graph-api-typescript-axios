@@ -9953,7 +9953,7 @@ export const RoleManagementApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listPermissionRoleDefinitions(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnifiedRoleDefinition>> {
+        async listPermissionRoleDefinitions(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnifiedRoleDefinition>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listPermissionRoleDefinitions(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RoleManagementApi.listPermissionRoleDefinitions']?.[localVarOperationServerIndex]?.url;
@@ -9985,7 +9985,7 @@ export const RoleManagementApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listPermissionRoleDefinitions(options?: RawAxiosRequestConfig): AxiosPromise<UnifiedRoleDefinition> {
+        listPermissionRoleDefinitions(options?: RawAxiosRequestConfig): AxiosPromise<Array<UnifiedRoleDefinition>> {
             return localVarFp.listPermissionRoleDefinitions(options).then((request) => request(axios, basePath));
         },
     };
