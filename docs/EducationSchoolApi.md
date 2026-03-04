@@ -494,6 +494,7 @@ const { status, data } = await apiInstance.listSchoolUsers(
 # **listSchools**
 > CollectionOfSchools listSchools()
 
+Retrieves a collection of education schools with optional filtering and ordering.  **Filtering by external ID:** Use `$filter` to query schools by their external identifier, for example: `$filter=externalId eq \'EX12345\'` 
 
 ### Example
 
@@ -506,11 +507,18 @@ import {
 const configuration = new Configuration();
 const apiInstance = new EducationSchoolApi(configuration);
 
-const { status, data } = await apiInstance.listSchools();
+let $filter: string; //Filter items by property values. Supports a subset of OData filter expressions.  **Supported filters:** - By external ID: `externalId eq \'ext_12345\'`  (optional) (default to undefined)
+
+const { status, data } = await apiInstance.listSchools(
+    $filter
+);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **$filter** | [**string**] | Filter items by property values. Supports a subset of OData filter expressions.  **Supported filters:** - By external ID: &#x60;externalId eq \&#39;ext_12345\&#39;&#x60;  | (optional) defaults to undefined|
 
 
 ### Return type

@@ -6711,12 +6711,13 @@ export const EducationSchoolApiAxiosParamCreator = function (configuration?: Con
             };
         },
         /**
-         * 
+         * Retrieves a collection of education schools with optional filtering and ordering.  **Filtering by external ID:** Use `$filter` to query schools by their external identifier, for example: `$filter=externalId eq \'EX12345\'` 
          * @summary Get a list of schools and their properties
+         * @param {string} [$filter] Filter items by property values. Supports a subset of OData filter expressions.  **Supported filters:** - By external ID: &#x60;externalId eq \&#39;ext_12345\&#39;&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listSchools: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listSchools: async ($filter?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1.0/education/schools`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6732,6 +6733,10 @@ export const EducationSchoolApiAxiosParamCreator = function (configuration?: Con
             // authentication bearerAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if ($filter !== undefined) {
+                localVarQueryParameter['$filter'] = $filter;
+            }
 
 
     
@@ -6920,13 +6925,14 @@ export const EducationSchoolApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
+         * Retrieves a collection of education schools with optional filtering and ordering.  **Filtering by external ID:** Use `$filter` to query schools by their external identifier, for example: `$filter=externalId eq \'EX12345\'` 
          * @summary Get a list of schools and their properties
+         * @param {string} [$filter] Filter items by property values. Supports a subset of OData filter expressions.  **Supported filters:** - By external ID: &#x60;externalId eq \&#39;ext_12345\&#39;&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listSchools(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionOfSchools>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listSchools(options);
+        async listSchools($filter?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionOfSchools>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listSchools($filter, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EducationSchoolApi.listSchools']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7050,13 +7056,14 @@ export const EducationSchoolApiFactory = function (configuration?: Configuration
             return localVarFp.listSchoolUsers(schoolId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Retrieves a collection of education schools with optional filtering and ordering.  **Filtering by external ID:** Use `$filter` to query schools by their external identifier, for example: `$filter=externalId eq \'EX12345\'` 
          * @summary Get a list of schools and their properties
+         * @param {string} [$filter] Filter items by property values. Supports a subset of OData filter expressions.  **Supported filters:** - By external ID: &#x60;externalId eq \&#39;ext_12345\&#39;&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listSchools(options?: RawAxiosRequestConfig): AxiosPromise<CollectionOfSchools> {
-            return localVarFp.listSchools(options).then((request) => request(axios, basePath));
+        listSchools($filter?: string, options?: RawAxiosRequestConfig): AxiosPromise<CollectionOfSchools> {
+            return localVarFp.listSchools($filter, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7192,14 +7199,15 @@ export class EducationSchoolApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Retrieves a collection of education schools with optional filtering and ordering.  **Filtering by external ID:** Use `$filter` to query schools by their external identifier, for example: `$filter=externalId eq \'EX12345\'` 
      * @summary Get a list of schools and their properties
+     * @param {string} [$filter] Filter items by property values. Supports a subset of OData filter expressions.  **Supported filters:** - By external ID: &#x60;externalId eq \&#39;ext_12345\&#39;&#x60; 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationSchoolApi
      */
-    public listSchools(options?: RawAxiosRequestConfig) {
-        return EducationSchoolApiFp(this.configuration).listSchools(options).then((request) => request(this.axios, this.basePath));
+    public listSchools($filter?: string, options?: RawAxiosRequestConfig) {
+        return EducationSchoolApiFp(this.configuration).listSchools($filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
