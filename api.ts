@@ -7275,7 +7275,7 @@ export const EducationUserApiAxiosParamCreator = function (configuration?: Confi
         /**
          * Deletes an education user by their internal ID.  **To delete by external ID:** If you only have an external ID, you must first retrieve the user\'s internal ID: 1. Call `GET /graph/v1.0/education/users?$filter=externalId eq \'{value}\'` 2. Extract the `id` from the response 3. Use that `id` in this DELETE endpoint  See the [ListEducationUsers](#/educationUser/ListEducationUsers) operation for query details. 
          * @summary Delete educationUser
-         * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user  with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60;  to retrieve the internal ID. 
+         * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60; to retrieve the internal ID. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7472,7 +7472,7 @@ export const EducationUserApiFp = function(configuration?: Configuration) {
         /**
          * Deletes an education user by their internal ID.  **To delete by external ID:** If you only have an external ID, you must first retrieve the user\'s internal ID: 1. Call `GET /graph/v1.0/education/users?$filter=externalId eq \'{value}\'` 2. Extract the `id` from the response 3. Use that `id` in this DELETE endpoint  See the [ListEducationUsers](#/educationUser/ListEducationUsers) operation for query details. 
          * @summary Delete educationUser
-         * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user  with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60;  to retrieve the internal ID. 
+         * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60; to retrieve the internal ID. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7548,7 +7548,7 @@ export const EducationUserApiFactory = function (configuration?: Configuration, 
         /**
          * Deletes an education user by their internal ID.  **To delete by external ID:** If you only have an external ID, you must first retrieve the user\'s internal ID: 1. Call `GET /graph/v1.0/education/users?$filter=externalId eq \'{value}\'` 2. Extract the `id` from the response 3. Use that `id` in this DELETE endpoint  See the [ListEducationUsers](#/educationUser/ListEducationUsers) operation for query details. 
          * @summary Delete educationUser
-         * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user  with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60;  to retrieve the internal ID. 
+         * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60; to retrieve the internal ID. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7614,7 +7614,7 @@ export class EducationUserApi extends BaseAPI {
     /**
      * Deletes an education user by their internal ID.  **To delete by external ID:** If you only have an external ID, you must first retrieve the user\'s internal ID: 1. Call `GET /graph/v1.0/education/users?$filter=externalId eq \'{value}\'` 2. Extract the `id` from the response 3. Use that `id` in this DELETE endpoint  See the [ListEducationUsers](#/educationUser/ListEducationUsers) operation for query details. 
      * @summary Delete educationUser
-     * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user  with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60;  to retrieve the internal ID. 
+     * @param {string} userId key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60; to retrieve the internal ID. 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EducationUserApi
@@ -8618,6 +8618,46 @@ export class MeChangepasswordApi extends BaseAPI {
 export const MeDriveApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Follow a DriveItem.
+         * @summary Follow a DriveItem
+         * @param {string} itemId key: id of item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        followDriveItem: async (itemId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'itemId' is not null or undefined
+            assertParamExists('followDriveItem', 'itemId', itemId)
+            const localVarPath = `/v1.0/me/drive/items/{item-id}/follow`
+                .replace(`{${"item-id"}}`, encodeURIComponent(String(itemId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 
          * @summary Get personal space for user
          * @param {*} [options] Override http request option.
@@ -8735,6 +8775,46 @@ export const MeDriveApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Unfollow a DriveItem.
+         * @summary Unfollow a DriveItem
+         * @param {string} itemId key: id of item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unfollowDriveItem: async (itemId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'itemId' is not null or undefined
+            assertParamExists('unfollowDriveItem', 'itemId', itemId)
+            const localVarPath = `/v1.0/me/drive/following/{item-id}`
+                .replace(`{${"item-id"}}`, encodeURIComponent(String(itemId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -8745,6 +8825,19 @@ export const MeDriveApiAxiosParamCreator = function (configuration?: Configurati
 export const MeDriveApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = MeDriveApiAxiosParamCreator(configuration)
     return {
+        /**
+         * Follow a DriveItem.
+         * @summary Follow a DriveItem
+         * @param {string} itemId key: id of item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async followDriveItem(itemId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DriveItem>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.followDriveItem(itemId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MeDriveApi.followDriveItem']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
         /**
          * 
          * @summary Get personal space for user
@@ -8783,6 +8876,19 @@ export const MeDriveApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['MeDriveApi.listSharedWithMe']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Unfollow a DriveItem.
+         * @summary Unfollow a DriveItem
+         * @param {string} itemId key: id of item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async unfollowDriveItem(itemId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.unfollowDriveItem(itemId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MeDriveApi.unfollowDriveItem']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -8793,6 +8899,16 @@ export const MeDriveApiFp = function(configuration?: Configuration) {
 export const MeDriveApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = MeDriveApiFp(configuration)
     return {
+        /**
+         * Follow a DriveItem.
+         * @summary Follow a DriveItem
+         * @param {string} itemId key: id of item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        followDriveItem(itemId: string, options?: RawAxiosRequestConfig): AxiosPromise<DriveItem> {
+            return localVarFp.followDriveItem(itemId, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @summary Get personal space for user
@@ -8822,6 +8938,16 @@ export const MeDriveApiFactory = function (configuration?: Configuration, basePa
         listSharedWithMe($expand?: Set<ListSharedWithMeExpandEnum>, options?: RawAxiosRequestConfig): AxiosPromise<CollectionOfDriveItems1> {
             return localVarFp.listSharedWithMe($expand, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Unfollow a DriveItem.
+         * @summary Unfollow a DriveItem
+         * @param {string} itemId key: id of item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unfollowDriveItem(itemId: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.unfollowDriveItem(itemId, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -8832,6 +8958,18 @@ export const MeDriveApiFactory = function (configuration?: Configuration, basePa
  * @extends {BaseAPI}
  */
 export class MeDriveApi extends BaseAPI {
+    /**
+     * Follow a DriveItem.
+     * @summary Follow a DriveItem
+     * @param {string} itemId key: id of item
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MeDriveApi
+     */
+    public followDriveItem(itemId: string, options?: RawAxiosRequestConfig) {
+        return MeDriveApiFp(this.configuration).followDriveItem(itemId, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Get personal space for user
@@ -8865,6 +9003,18 @@ export class MeDriveApi extends BaseAPI {
      */
     public listSharedWithMe($expand?: Set<ListSharedWithMeExpandEnum>, options?: RawAxiosRequestConfig) {
         return MeDriveApiFp(this.configuration).listSharedWithMe($expand, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Unfollow a DriveItem.
+     * @summary Unfollow a DriveItem
+     * @param {string} itemId key: id of item
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MeDriveApi
+     */
+    public unfollowDriveItem(itemId: string, options?: RawAxiosRequestConfig) {
+        return MeDriveApiFp(this.configuration).unfollowDriveItem(itemId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

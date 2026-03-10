@@ -78,7 +78,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new EducationUserApi(configuration);
 
-let userId: string; //key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user  with `GET /graph/v1.0/education/users?$filter=externalId eq \'{value}\'`  to retrieve the internal ID.  (default to undefined)
+let userId: string; //key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user with `GET /graph/v1.0/education/users?$filter=externalId eq \'{value}\'` to retrieve the internal ID.  (default to undefined)
 
 const { status, data } = await apiInstance.deleteEducationUser(
     userId
@@ -89,7 +89,7 @@ const { status, data } = await apiInstance.deleteEducationUser(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **userId** | [**string**] | key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user  with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60;  to retrieve the internal ID.  | defaults to undefined|
+| **userId** | [**string**] | key: internal user id (UUID format) or username of user.  **Note:** If you only have an external ID, first query the user with &#x60;GET /graph/v1.0/education/users?$filter&#x3D;externalId eq \&#39;{value}\&#39;&#x60; to retrieve the internal ID.  | defaults to undefined|
 
 
 ### Return type

@@ -4,9 +4,63 @@ All URIs are relative to *https://localhost:9200/graph*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
+|[**followDriveItem**](#followdriveitem) | **POST** /v1.0/me/drive/items/{item-id}/follow | Follow a DriveItem|
 |[**getHome**](#gethome) | **GET** /v1.0/me/drive | Get personal space for user|
 |[**listSharedByMe**](#listsharedbyme) | **GET** /v1beta1/me/drive/sharedByMe | Get a list of driveItem objects shared by the current user.|
 |[**listSharedWithMe**](#listsharedwithme) | **GET** /v1beta1/me/drive/sharedWithMe | Get a list of driveItem objects shared with the owner of a drive.|
+|[**unfollowDriveItem**](#unfollowdriveitem) | **DELETE** /v1.0/me/drive/following/{item-id} | Unfollow a DriveItem|
+
+# **followDriveItem**
+> DriveItem followDriveItem()
+
+Follow a DriveItem.
+
+### Example
+
+```typescript
+import {
+    MeDriveApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new MeDriveApi(configuration);
+
+let itemId: string; //key: id of item (default to undefined)
+
+const { status, data } = await apiInstance.followDriveItem(
+    itemId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **itemId** | [**string**] | key: id of item | defaults to undefined|
+
+
+### Return type
+
+**DriveItem**
+
+### Authorization
+
+[openId](../README.md#openId), [basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Created |  -  |
+|**0** | error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getHome**
 > Drive getHome()
@@ -152,6 +206,58 @@ const { status, data } = await apiInstance.listSharedWithMe(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | OK |  -  |
+|**0** | error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **unfollowDriveItem**
+> unfollowDriveItem()
+
+Unfollow a DriveItem.
+
+### Example
+
+```typescript
+import {
+    MeDriveApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new MeDriveApi(configuration);
+
+let itemId: string; //key: id of item (default to undefined)
+
+const { status, data } = await apiInstance.unfollowDriveItem(
+    itemId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **itemId** | [**string**] | key: id of item | defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[openId](../README.md#openId), [basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | No Content |  -  |
 |**0** | error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
