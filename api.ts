@@ -509,6 +509,19 @@ export interface CollectionOfGroup {
 /**
  * 
  * @export
+ * @interface CollectionOfInvitations
+ */
+export interface CollectionOfInvitations {
+    /**
+     * 
+     * @type {Array<Invitation>}
+     * @memberof CollectionOfInvitations
+     */
+    'value'?: Array<Invitation>;
+}
+/**
+ * 
+ * @export
  * @interface CollectionOfPermissions
  */
 export interface CollectionOfPermissions {
@@ -1344,6 +1357,25 @@ export interface EducationUserReference {
     '@odata.id'?: string;
 }
 /**
+ * Represents an email address.
+ * @export
+ * @interface EmailAddress
+ */
+export interface EmailAddress {
+    /**
+     * The email address.
+     * @type {string}
+     * @memberof EmailAddress
+     */
+    'address'?: string;
+    /**
+     * The name associated with the email address.
+     * @type {string}
+     * @memberof EmailAddress
+     */
+    'name'?: string;
+}
+/**
  * 
  * @export
  * @interface ExportPersonalDataRequest
@@ -1598,6 +1630,92 @@ export interface Image {
      * @memberof Image
      */
     'width'?: number;
+}
+/**
+ * Represents an invitation to a drive item. 
+ * @export
+ * @interface Invitation
+ */
+export interface Invitation {
+    /**
+     * The display name of the user being invited.
+     * @type {string}
+     * @memberof Invitation
+     */
+    'invitedUserDisplayName'?: string;
+    /**
+     * The email address of the user being invited. Required.
+     * @type {string}
+     * @memberof Invitation
+     */
+    'invitedUserEmailAddress'?: string;
+    /**
+     * 
+     * @type {InvitedUserMessageInfo}
+     * @memberof Invitation
+     */
+    'invitedUserMessageInfo'?: InvitedUserMessageInfo;
+    /**
+     * Indicates whether an invitation message should be sent to the user.
+     * @type {boolean}
+     * @memberof Invitation
+     */
+    'sendInvitationMessage'?: boolean;
+    /**
+     * The URL to which the user is redirected after accepting the invitation. Required.
+     * @type {string}
+     * @memberof Invitation
+     */
+    'inviteRedirectUrl'?: string;
+    /**
+     * The URL that the user can use to redeem the invitation. Read-only.
+     * @type {string}
+     * @memberof Invitation
+     */
+    'inviteRedeemUrl'?: string;
+    /**
+     * The status of the invitation. Read-only.
+     * @type {string}
+     * @memberof Invitation
+     */
+    'status'?: string;
+    /**
+     * 
+     * @type {User}
+     * @memberof Invitation
+     */
+    'invitedUser'?: User;
+    /**
+     * The type of user being invited.
+     * @type {string}
+     * @memberof Invitation
+     */
+    'invitedUserType'?: string;
+}
+/**
+ * Additional information about the invitation message.
+ * @export
+ * @interface InvitedUserMessageInfo
+ */
+export interface InvitedUserMessageInfo {
+    /**
+     * Additional recipients who will receive a copy of the invitation message.
+     * @type {Array<Recipient>}
+     * @memberof InvitedUserMessageInfo
+     */
+    'ccRecipients'?: Array<Recipient>;
+    /**
+     * The customized message body that will be included in the invitation message.
+     * @type {string}
+     * @memberof InvitedUserMessageInfo
+     */
+    'customizedMessageBody'?: string;
+    /**
+     * The language of the invitation message.
+     * @type {string}
+     * @memberof InvitedUserMessageInfo
+     */
+    'messageLanguage'?: string;
 }
 /**
  * 
@@ -1971,6 +2089,19 @@ export interface Quota {
      * @memberof Quota
      */
     'used'?: number;
+}
+/**
+ * Represents a recipient of an invitation.
+ * @export
+ * @interface Recipient
+ */
+export interface Recipient {
+    /**
+     * 
+     * @type {EmailAddress}
+     * @memberof Recipient
+     */
+    'emailAddress'?: EmailAddress;
 }
 /**
  * Remote item data, if the item is shared from a drive other than the one being accessed. Read-only.
@@ -8493,6 +8624,263 @@ export const ListGroupsExpandEnum = {
     Members: 'members'
 } as const;
 export type ListGroupsExpandEnum = typeof ListGroupsExpandEnum[keyof typeof ListGroupsExpandEnum];
+
+
+/**
+ * InvitationsApi - axios parameter creator
+ * @export
+ */
+export const InvitationsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create a new invitation
+         * @param {Invitation} [invitation] New invitation
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createInvitation: async (invitation?: Invitation, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1.0/invitations`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(invitation, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get an invitation by key
+         * @param {string} invitationId key: id of invitation
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInvitation: async (invitationId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'invitationId' is not null or undefined
+            assertParamExists('getInvitation', 'invitationId', invitationId)
+            const localVarPath = `/v1.0/invitations/{invitation-id}`
+                .replace(`{${"invitation-id"}}`, encodeURIComponent(String(invitationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get a list of invitations
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listInvitations: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1.0/invitations`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * InvitationsApi - functional programming interface
+ * @export
+ */
+export const InvitationsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = InvitationsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create a new invitation
+         * @param {Invitation} [invitation] New invitation
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createInvitation(invitation?: Invitation, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Invitation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createInvitation(invitation, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InvitationsApi.createInvitation']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get an invitation by key
+         * @param {string} invitationId key: id of invitation
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getInvitation(invitationId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Invitation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getInvitation(invitationId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InvitationsApi.getInvitation']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get a list of invitations
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listInvitations(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionOfInvitations>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listInvitations(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['InvitationsApi.listInvitations']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * InvitationsApi - factory interface
+ * @export
+ */
+export const InvitationsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = InvitationsApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create a new invitation
+         * @param {Invitation} [invitation] New invitation
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createInvitation(invitation?: Invitation, options?: RawAxiosRequestConfig): AxiosPromise<Invitation> {
+            return localVarFp.createInvitation(invitation, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get an invitation by key
+         * @param {string} invitationId key: id of invitation
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getInvitation(invitationId: string, options?: RawAxiosRequestConfig): AxiosPromise<Invitation> {
+            return localVarFp.getInvitation(invitationId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get a list of invitations
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listInvitations(options?: RawAxiosRequestConfig): AxiosPromise<CollectionOfInvitations> {
+            return localVarFp.listInvitations(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * InvitationsApi - object-oriented interface
+ * @export
+ * @class InvitationsApi
+ * @extends {BaseAPI}
+ */
+export class InvitationsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create a new invitation
+     * @param {Invitation} [invitation] New invitation
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof InvitationsApi
+     */
+    public createInvitation(invitation?: Invitation, options?: RawAxiosRequestConfig) {
+        return InvitationsApiFp(this.configuration).createInvitation(invitation, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get an invitation by key
+     * @param {string} invitationId key: id of invitation
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof InvitationsApi
+     */
+    public getInvitation(invitationId: string, options?: RawAxiosRequestConfig) {
+        return InvitationsApiFp(this.configuration).getInvitation(invitationId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get a list of invitations
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof InvitationsApi
+     */
+    public listInvitations(options?: RawAxiosRequestConfig) {
+        return InvitationsApiFp(this.configuration).listInvitations(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 
 /**

@@ -27,6 +27,7 @@ docs/CollectionOfDrives1.md
 docs/CollectionOfEducationClass.md
 docs/CollectionOfEducationUser.md
 docs/CollectionOfGroup.md
+docs/CollectionOfInvitations.md
 docs/CollectionOfPermissions.md
 docs/CollectionOfPermissionsWithAllowedValues.md
 docs/CollectionOfSchools.md
@@ -53,6 +54,7 @@ docs/EducationSchoolApi.md
 docs/EducationUser.md
 docs/EducationUserApi.md
 docs/EducationUserReference.md
+docs/EmailAddress.md
 docs/ExportPersonalDataRequest.md
 docs/FileSystemInfo.md
 docs/Folder.md
@@ -65,6 +67,9 @@ docs/Hashes.md
 docs/Identity.md
 docs/IdentitySet.md
 docs/Image.md
+docs/Invitation.md
+docs/InvitationsApi.md
+docs/InvitedUserMessageInfo.md
 docs/ItemReference.md
 docs/MeChangepasswordApi.md
 docs/MeDriveApi.md
@@ -84,6 +89,7 @@ docs/PasswordProfile.md
 docs/Permission.md
 docs/Photo.md
 docs/Quota.md
+docs/Recipient.md
 docs/RemoteItem.md
 docs/RoleManagementApi.md
 docs/SharePointIdentitySet.md
