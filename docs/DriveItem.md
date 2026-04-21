@@ -37,6 +37,7 @@ Name | Type | Description | Notes
 **audio** | [**Audio**](Audio.md) |  | [optional] [default to undefined]
 **video** | [**Video**](Video.md) |  | [optional] [default to undefined]
 **client_synchronize** | **boolean** | Indicates if the item is synchronized with the underlying storage provider. Read-only. | [optional] [default to undefined]
+**microsoft_graph_downloadUrl** | **string** | A pre-authenticated URL that can be used to download the item\&#39;s content without providing an Authorization header. The URL is short-lived and cannot be cached.  This annotation is only populated when explicitly requested via &#x60;$select&#x60;, and only for items that have a &#x60;file&#x60; facet. The returned URL is valid for a limited time and should be used promptly.  | [optional] [readonly] [default to undefined]
 **UI_Hidden** | **boolean** | Properties or facets (see UI.Facet) annotated with this term will not be rendered if the annotation evaluates to true. Users can set this to hide permissions. | [optional] [default to undefined]
 
 ## Example
@@ -76,6 +77,7 @@ const instance: DriveItem = {
     audio,
     video,
     client_synchronize,
+    microsoft_graph_downloadUrl,
     UI_Hidden,
 };
 ```
