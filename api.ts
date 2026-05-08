@@ -936,6 +936,12 @@ export interface DriveItem {
      */
     'video'?: Video;
     /**
+     * 
+     * @type {MotionPhoto}
+     * @memberof DriveItem
+     */
+    '@libre.graph.motionPhoto'?: MotionPhoto;
+    /**
      * Indicates if the item is synchronized with the underlying storage provider. Read-only.
      * @type {boolean}
      * @memberof DriveItem
@@ -1772,6 +1778,31 @@ export interface MemberReference {
      * @memberof MemberReference
      */
     '@odata.id'?: string;
+}
+/**
+ * Motion Photo metadata. A Motion Photo is a still image with a short video clip appended to the end of the file. The presence of this facet on a driveItem indicates that the item is a Motion Photo; absence indicates it is not.  Based on the Google Motion Photo format v1.0 specification: https://developer.android.com/media/platform/motion-photo-format 
+ * @export
+ * @interface MotionPhoto
+ */
+export interface MotionPhoto {
+    /**
+     * The file format version of the Motion Photo. Currently always 1. Read-only.
+     * @type {number}
+     * @memberof MotionPhoto
+     */
+    'version'?: number;
+    /**
+     * Presentation timestamp in microseconds of the video frame that corresponds to the still image. A value of -1 indicates unspecified. If absent, readers should use a timestamp near the middle of the video track. Read-only. 
+     * @type {number}
+     * @memberof MotionPhoto
+     */
+    'presentationTimestampUs'?: number;
+    /**
+     * Size in bytes of the embedded video portion of the file. The video is appended at the end of the file, so clients can fetch it with a Range request: `Range: bytes=<fileSize - videoSize>-`. Read-only. 
+     * @type {number}
+     * @memberof MotionPhoto
+     */
+    'videoSize'?: number;
 }
 /**
  * Represents an identity used to sign in to a user account
