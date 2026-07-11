@@ -4,7 +4,7 @@ All URIs are relative to *https://localhost:9200/graph*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**createDriveItem**](#createdriveitem) | **POST** /v1beta1/drives/{drive-id}/root/children | Create a drive item|
+|[**createDriveItem**](#createdriveitem) | **POST** /v1beta1/drives/{drive-id}/root/children | Create a new DriveItem at the drive root|
 |[**createLinkSpaceRoot**](#createlinkspaceroot) | **POST** /v1beta1/drives/{drive-id}/root/createLink | Create a sharing link for the root item of a Drive|
 |[**deletePermissionSpaceRoot**](#deletepermissionspaceroot) | **DELETE** /v1beta1/drives/{drive-id}/root/permissions/{perm-id} | Remove access to a Drive|
 |[**getPermissionSpaceRoot**](#getpermissionspaceroot) | **GET** /v1beta1/drives/{drive-id}/root/permissions/{perm-id} | Get a single sharing permission for the root item of a drive|
@@ -17,7 +17,7 @@ All URIs are relative to *https://localhost:9200/graph*
 # **createDriveItem**
 > DriveItem createDriveItem()
 
-You can use the root childrens endpoint to mount a remoteItem in the share jail. The `@client.synchronize` property of the `driveItem` in the [sharedWithMe](#/me.drive/ListSharedWithMe) endpoint will change to true. 
+Create a new folder or DriveItem in a Drive with the drive root as the parent.  Modeled on the MS Graph create driveItem endpoint (https://learn.microsoft.com/en-us/graph/api/driveitem-post-children).  The request body must specify exactly one of `folder` (set to `{}` to create a folder), `file` (to create a file item), or `remoteItem` (to mount a shared item; see [sharedWithMe](#/me.drive/ListSharedWithMe) for obtaining the source `remoteItem.id`). Requests with none of these, or with more than one, return 400. Mounting a share changes the `@client.synchronize` property of the `driveItem` in [sharedWithMe](#/me.drive/ListSharedWithMe) to true.  The `@libre.graph.conflictBehavior` query parameter controls what happens if a child with the same name already exists.  This endpoint also accepts the MS Graph colon-syntax URL form:      POST /v1beta1/drives/{drive-id}/root:/{path}:/children  OpenAPI cannot express the colon-delimited path segment, so this URL form is not represented as a separate operation in this specification. The server still accepts it, resolves `:/{path}:` as the parent of the new item, and applies `@libre.graph.missingParentsBehavior` to decide whether to create missing intermediate folders. 
 
 ### Example
 
@@ -32,10 +32,14 @@ const configuration = new Configuration();
 const apiInstance = new DrivesRootApi(configuration);
 
 let driveId: string; //key: id of drive (default to undefined)
-let driveItem: DriveItem; //In the request body, provide a JSON object with the following parameters. For mounting a share the necessary remoteItem id and permission id can be taken from the [sharedWithMe](#/me.drive/ListSharedWithMe) endpoint. (optional)
+let libreGraphConflictBehavior: 'fail' | 'replace'; //Controls what happens when a child with the same name already exists. `fail` (default) returns 409; `replace` overwrites the existing item. MS Graph\'s `rename` value is not supported.  (optional) (default to 'fail')
+let libreGraphMissingParentsBehavior: 'fail' | 'create'; //Controls what happens when a colon-syntax URL refers to a path whose intermediate folders don\'t all exist yet. `fail` (default) returns 404; `create` creates the missing intermediate folders before creating the final item. Only meaningful for colon-syntax URLs; ignored otherwise.  (optional) (default to 'fail')
+let driveItem: DriveItem; //In the request body, provide a JSON object describing the new driveItem. Must specify exactly one of `folder`, `file`, or `remoteItem`. For mount-share, see [sharedWithMe](#/me.drive/ListSharedWithMe) for obtaining the source `remoteItem.id` and `permission` id. (optional)
 
 const { status, data } = await apiInstance.createDriveItem(
     driveId,
+    libreGraphConflictBehavior,
+    libreGraphMissingParentsBehavior,
     driveItem
 );
 ```
@@ -44,8 +48,10 @@ const { status, data } = await apiInstance.createDriveItem(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **driveItem** | **DriveItem**| In the request body, provide a JSON object with the following parameters. For mounting a share the necessary remoteItem id and permission id can be taken from the [sharedWithMe](#/me.drive/ListSharedWithMe) endpoint. | |
+| **driveItem** | **DriveItem**| In the request body, provide a JSON object describing the new driveItem. Must specify exactly one of &#x60;folder&#x60;, &#x60;file&#x60;, or &#x60;remoteItem&#x60;. For mount-share, see [sharedWithMe](#/me.drive/ListSharedWithMe) for obtaining the source &#x60;remoteItem.id&#x60; and &#x60;permission&#x60; id. | |
 | **driveId** | [**string**] | key: id of drive | defaults to undefined|
+| **libreGraphConflictBehavior** | [**&#39;fail&#39; | &#39;replace&#39;**]**Array<&#39;fail&#39; &#124; &#39;replace&#39;>** | Controls what happens when a child with the same name already exists. &#x60;fail&#x60; (default) returns 409; &#x60;replace&#x60; overwrites the existing item. MS Graph\&#39;s &#x60;rename&#x60; value is not supported.  | (optional) defaults to 'fail'|
+| **libreGraphMissingParentsBehavior** | [**&#39;fail&#39; | &#39;create&#39;**]**Array<&#39;fail&#39; &#124; &#39;create&#39;>** | Controls what happens when a colon-syntax URL refers to a path whose intermediate folders don\&#39;t all exist yet. &#x60;fail&#x60; (default) returns 404; &#x60;create&#x60; creates the missing intermediate folders before creating the final item. Only meaningful for colon-syntax URLs; ignored otherwise.  | (optional) defaults to 'fail'|
 
 
 ### Return type
