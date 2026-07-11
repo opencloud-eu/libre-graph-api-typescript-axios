@@ -259,9 +259,11 @@ const configuration = new Configuration();
 const apiInstance = new DrivesRootApi(configuration);
 
 let driveId: string; //key: id of drive (default to undefined)
+let $select: Set<'@microsoft.graph.downloadUrl' | '@libre.graph.permissions.actions.allowedValues'>; //Select additional properties to be returned. (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getRoot(
-    driveId
+    driveId,
+    $select
 );
 ```
 
@@ -270,6 +272,7 @@ const { status, data } = await apiInstance.getRoot(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **driveId** | [**string**] | key: id of drive | defaults to undefined|
+| **$select** | **Array<&#39;@microsoft.graph.downloadUrl&#39; &#124; &#39;@libre.graph.permissions.actions.allowedValues&#39;>** | Select additional properties to be returned. | (optional) defaults to undefined|
 
 
 ### Return type

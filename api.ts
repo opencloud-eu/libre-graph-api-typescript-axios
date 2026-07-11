@@ -977,6 +977,12 @@ export interface DriveItem {
      * @memberof DriveItem
      */
     '@libre.graph.tags'?: Array<string>;
+    /**
+     * A list of actions the caller is allowed to perform on this item.  Only returned when explicitly requested via `$select` on endpoints that support it. Mirrors the annotation of the same name on the `/permissions` endpoint, allowing clients to learn a caller\'s effective actions on an item without a separate round-trip. 
+     * @type {Array<string>}
+     * @memberof DriveItem
+     */
+    '@libre.graph.permissions.actions.allowedValues'?: Array<string>;
 }
 /**
  * 
@@ -3805,7 +3811,8 @@ export type CreateChildDriveItemLibreGraphMissingParentsBehaviorEnum = typeof Cr
  * @export
  */
 export const GetDriveItemSelectEnum = {
-    MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl'
+    MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
 } as const;
 export type GetDriveItemSelectEnum = typeof GetDriveItemSelectEnum[keyof typeof GetDriveItemSelectEnum];
 
@@ -5322,10 +5329,11 @@ export const DrivesRootApiAxiosParamCreator = function (configuration?: Configur
          * 
          * @summary Get root from arbitrary space
          * @param {string} driveId key: id of drive
+         * @param {Set<GetRootSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRoot: async (driveId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRoot: async (driveId: string, $select?: Set<GetRootSelectEnum>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'driveId' is not null or undefined
             assertParamExists('getRoot', 'driveId', driveId)
             const localVarPath = `/v1.0/drives/{drive-id}/root`
@@ -5346,6 +5354,10 @@ export const DrivesRootApiAxiosParamCreator = function (configuration?: Configur
             // authentication basicAuth required
             // http basic authentication required
             setBasicAuthToObject(localVarRequestOptions, configuration)
+
+            if ($select) {
+                localVarQueryParameter['$select'] = Array.from($select).join(COLLECTION_FORMATS.csv);
+            }
 
 
     
@@ -5634,11 +5646,12 @@ export const DrivesRootApiFp = function(configuration?: Configuration) {
          * 
          * @summary Get root from arbitrary space
          * @param {string} driveId key: id of drive
+         * @param {Set<GetRootSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRoot(driveId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DriveItem>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getRoot(driveId, options);
+        async getRoot(driveId: string, $select?: Set<GetRootSelectEnum>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DriveItem>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRoot(driveId, $select, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DrivesRootApi.getRoot']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5764,11 +5777,12 @@ export const DrivesRootApiFactory = function (configuration?: Configuration, bas
          * 
          * @summary Get root from arbitrary space
          * @param {string} driveId key: id of drive
+         * @param {Set<GetRootSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRoot(driveId: string, options?: RawAxiosRequestConfig): AxiosPromise<DriveItem> {
-            return localVarFp.getRoot(driveId, options).then((request) => request(axios, basePath));
+        getRoot(driveId: string, $select?: Set<GetRootSelectEnum>, options?: RawAxiosRequestConfig): AxiosPromise<DriveItem> {
+            return localVarFp.getRoot(driveId, $select, options).then((request) => request(axios, basePath));
         },
         /**
          * Sends a sharing invitation for the root of a `drive`. A sharing invitation provides permissions to the recipients and optionally sends them an email with a sharing link.  The response will be a permission object with the grantedToV2 property containing the created grant details.  ## Roles property values For now, roles are only identified by a uuid. There are no hardcoded aliases like `read` or `write` because role actions can be completely customized. 
@@ -5887,12 +5901,13 @@ export class DrivesRootApi extends BaseAPI {
      * 
      * @summary Get root from arbitrary space
      * @param {string} driveId key: id of drive
+     * @param {Set<GetRootSelectEnum>} [$select] Select additional properties to be returned.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DrivesRootApi
      */
-    public getRoot(driveId: string, options?: RawAxiosRequestConfig) {
-        return DrivesRootApiFp(this.configuration).getRoot(driveId, options).then((request) => request(this.axios, this.basePath));
+    public getRoot(driveId: string, $select?: Set<GetRootSelectEnum>, options?: RawAxiosRequestConfig) {
+        return DrivesRootApiFp(this.configuration).getRoot(driveId, $select, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5969,6 +5984,14 @@ export const CreateDriveItemLibreGraphMissingParentsBehaviorEnum = {
     Create: 'create'
 } as const;
 export type CreateDriveItemLibreGraphMissingParentsBehaviorEnum = typeof CreateDriveItemLibreGraphMissingParentsBehaviorEnum[keyof typeof CreateDriveItemLibreGraphMissingParentsBehaviorEnum];
+/**
+ * @export
+ */
+export const GetRootSelectEnum = {
+    MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
+} as const;
+export type GetRootSelectEnum = typeof GetRootSelectEnum[keyof typeof GetRootSelectEnum];
 /**
  * @export
  */
@@ -9857,10 +9880,11 @@ export const MeDriveRootApiAxiosParamCreator = function (configuration?: Configu
         /**
          * 
          * @summary Get root from personal space
+         * @param {Set<HomeGetRootSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        homeGetRoot: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        homeGetRoot: async ($select?: Set<HomeGetRootSelectEnum>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1.0/me/drive/root`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -9878,6 +9902,10 @@ export const MeDriveRootApiAxiosParamCreator = function (configuration?: Configu
             // authentication basicAuth required
             // http basic authentication required
             setBasicAuthToObject(localVarRequestOptions, configuration)
+
+            if ($select) {
+                localVarQueryParameter['$select'] = Array.from($select).join(COLLECTION_FORMATS.csv);
+            }
 
 
     
@@ -9903,11 +9931,12 @@ export const MeDriveRootApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Get root from personal space
+         * @param {Set<HomeGetRootSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async homeGetRoot(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DriveItem>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.homeGetRoot(options);
+        async homeGetRoot($select?: Set<HomeGetRootSelectEnum>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DriveItem>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.homeGetRoot($select, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MeDriveRootApi.homeGetRoot']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9925,11 +9954,12 @@ export const MeDriveRootApiFactory = function (configuration?: Configuration, ba
         /**
          * 
          * @summary Get root from personal space
+         * @param {Set<HomeGetRootSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        homeGetRoot(options?: RawAxiosRequestConfig): AxiosPromise<DriveItem> {
-            return localVarFp.homeGetRoot(options).then((request) => request(axios, basePath));
+        homeGetRoot($select?: Set<HomeGetRootSelectEnum>, options?: RawAxiosRequestConfig): AxiosPromise<DriveItem> {
+            return localVarFp.homeGetRoot($select, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -9944,15 +9974,24 @@ export class MeDriveRootApi extends BaseAPI {
     /**
      * 
      * @summary Get root from personal space
+     * @param {Set<HomeGetRootSelectEnum>} [$select] Select additional properties to be returned.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeDriveRootApi
      */
-    public homeGetRoot(options?: RawAxiosRequestConfig) {
-        return MeDriveRootApiFp(this.configuration).homeGetRoot(options).then((request) => request(this.axios, this.basePath));
+    public homeGetRoot($select?: Set<HomeGetRootSelectEnum>, options?: RawAxiosRequestConfig) {
+        return MeDriveRootApiFp(this.configuration).homeGetRoot($select, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
+/**
+ * @export
+ */
+export const HomeGetRootSelectEnum = {
+    MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
+} as const;
+export type HomeGetRootSelectEnum = typeof HomeGetRootSelectEnum[keyof typeof HomeGetRootSelectEnum];
 
 
 /**
@@ -9964,10 +10003,11 @@ export const MeDriveRootChildrenApiAxiosParamCreator = function (configuration?:
         /**
          * 
          * @summary Get children from drive
+         * @param {Set<HomeGetChildrenSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        homeGetChildren: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        homeGetChildren: async ($select?: Set<HomeGetChildrenSelectEnum>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1.0/me/drive/root/children`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -9985,6 +10025,10 @@ export const MeDriveRootChildrenApiAxiosParamCreator = function (configuration?:
             // authentication basicAuth required
             // http basic authentication required
             setBasicAuthToObject(localVarRequestOptions, configuration)
+
+            if ($select) {
+                localVarQueryParameter['$select'] = Array.from($select).join(COLLECTION_FORMATS.csv);
+            }
 
 
     
@@ -10010,11 +10054,12 @@ export const MeDriveRootChildrenApiFp = function(configuration?: Configuration) 
         /**
          * 
          * @summary Get children from drive
+         * @param {Set<HomeGetChildrenSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async homeGetChildren(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionOfDriveItems>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.homeGetChildren(options);
+        async homeGetChildren($select?: Set<HomeGetChildrenSelectEnum>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionOfDriveItems>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.homeGetChildren($select, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MeDriveRootChildrenApi.homeGetChildren']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -10032,11 +10077,12 @@ export const MeDriveRootChildrenApiFactory = function (configuration?: Configura
         /**
          * 
          * @summary Get children from drive
+         * @param {Set<HomeGetChildrenSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        homeGetChildren(options?: RawAxiosRequestConfig): AxiosPromise<CollectionOfDriveItems> {
-            return localVarFp.homeGetChildren(options).then((request) => request(axios, basePath));
+        homeGetChildren($select?: Set<HomeGetChildrenSelectEnum>, options?: RawAxiosRequestConfig): AxiosPromise<CollectionOfDriveItems> {
+            return localVarFp.homeGetChildren($select, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -10051,15 +10097,24 @@ export class MeDriveRootChildrenApi extends BaseAPI {
     /**
      * 
      * @summary Get children from drive
+     * @param {Set<HomeGetChildrenSelectEnum>} [$select] Select additional properties to be returned.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeDriveRootChildrenApi
      */
-    public homeGetChildren(options?: RawAxiosRequestConfig) {
-        return MeDriveRootChildrenApiFp(this.configuration).homeGetChildren(options).then((request) => request(this.axios, this.basePath));
+    public homeGetChildren($select?: Set<HomeGetChildrenSelectEnum>, options?: RawAxiosRequestConfig) {
+        return MeDriveRootChildrenApiFp(this.configuration).homeGetChildren($select, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
+/**
+ * @export
+ */
+export const HomeGetChildrenSelectEnum = {
+    MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
+} as const;
+export type HomeGetChildrenSelectEnum = typeof HomeGetChildrenSelectEnum[keyof typeof HomeGetChildrenSelectEnum];
 
 
 /**

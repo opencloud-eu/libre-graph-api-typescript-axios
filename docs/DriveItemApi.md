@@ -153,7 +153,7 @@ const apiInstance = new DriveItemApi(configuration);
 
 let driveId: string; //key: id of drive (default to undefined)
 let itemId: string; //key: id of item (default to undefined)
-let $select: Set<'@microsoft.graph.downloadUrl'>; //Select additional properties to be returned. (optional) (default to undefined)
+let $select: Set<'@microsoft.graph.downloadUrl' | '@libre.graph.permissions.actions.allowedValues'>; //Select additional properties to be returned. (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getDriveItem(
     driveId,
@@ -168,7 +168,7 @@ const { status, data } = await apiInstance.getDriveItem(
 |------------- | ------------- | ------------- | -------------|
 | **driveId** | [**string**] | key: id of drive | defaults to undefined|
 | **itemId** | [**string**] | key: id of item | defaults to undefined|
-| **$select** | **Array<&#39;@microsoft.graph.downloadUrl&#39;>** | Select additional properties to be returned. | (optional) defaults to undefined|
+| **$select** | **Array<&#39;@microsoft.graph.downloadUrl&#39; &#124; &#39;@libre.graph.permissions.actions.allowedValues&#39;>** | Select additional properties to be returned. | (optional) defaults to undefined|
 
 
 ### Return type

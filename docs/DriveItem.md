@@ -43,6 +43,7 @@ Name | Type | Description | Notes
 **UI_Hidden** | **boolean** | Properties or facets (see UI.Facet) annotated with this term will not be rendered if the annotation evaluates to true. Users can set this to hide permissions. | [optional] [default to undefined]
 **libre_graph_me_following** | **boolean** | Indicates whether the current user is following this DriveItem. Read-only. Use the FollowDriveItem and UnfollowDriveItem operations to change the following state.  | [optional] [readonly] [default to undefined]
 **libre_graph_tags** | **Array&lt;string&gt;** | The list of tags assigned to this DriveItem. Read-only. Use the AssignTags and UnassignTags operations to modify tags.  | [optional] [readonly] [default to undefined]
+**libre_graph_permissions_actions_allowedValues** | **Array&lt;string&gt;** | A list of actions the caller is allowed to perform on this item.  Only returned when explicitly requested via &#x60;$select&#x60; on endpoints that support it. Mirrors the annotation of the same name on the &#x60;/permissions&#x60; endpoint, allowing clients to learn a caller\&#39;s effective actions on an item without a separate round-trip.  | [optional] [readonly] [default to undefined]
 
 ## Example
 
@@ -87,6 +88,7 @@ const instance: DriveItem = {
     UI_Hidden,
     libre_graph_me_following,
     libre_graph_tags,
+    libre_graph_permissions_actions_allowedValues,
 };
 ```
 
