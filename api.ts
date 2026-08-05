@@ -3468,6 +3468,55 @@ export const DriveItemApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
+         * Get a DriveItem by using its ID.  Modeled on the MS Graph get driveItem endpoint (https://learn.microsoft.com/en-us/graph/api/driveitem-get). 
+         * @summary Get a DriveItem.
+         * @param {string} driveId key: id of drive
+         * @param {string} itemId key: id of item
+         * @param {Set<GetDriveItemV1SelectEnum>} [$select] Select additional properties to be returned.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDriveItemV1: async (driveId: string, itemId: string, $select?: Set<GetDriveItemV1SelectEnum>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'driveId' is not null or undefined
+            assertParamExists('getDriveItemV1', 'driveId', driveId)
+            // verify required parameter 'itemId' is not null or undefined
+            assertParamExists('getDriveItemV1', 'itemId', itemId)
+            const localVarPath = `/v1.0/drives/{drive-id}/items/{item-id}`
+                .replace(`{${"drive-id"}}`, encodeURIComponent(String(driveId)))
+                .replace(`{${"item-id"}}`, encodeURIComponent(String(itemId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+            if ($select) {
+                localVarQueryParameter['$select'] = Array.from($select).join(COLLECTION_FORMATS.csv);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Update a DriveItem.  The request body must include a JSON object with the properties to update. Only the properties that are provided will be updated.  Currently it supports updating the following properties:  * `@UI.Hidden` - Hides the item from the UI. 
          * @summary Update a DriveItem.
          * @param {string} driveId key: id of drive
@@ -3602,6 +3651,21 @@ export const DriveItemApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Get a DriveItem by using its ID.  Modeled on the MS Graph get driveItem endpoint (https://learn.microsoft.com/en-us/graph/api/driveitem-get). 
+         * @summary Get a DriveItem.
+         * @param {string} driveId key: id of drive
+         * @param {string} itemId key: id of item
+         * @param {Set<GetDriveItemV1SelectEnum>} [$select] Select additional properties to be returned.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDriveItemV1(driveId: string, itemId: string, $select?: Set<GetDriveItemV1SelectEnum>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DriveItem>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDriveItemV1(driveId, itemId, $select, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DriveItemApi.getDriveItemV1']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Update a DriveItem.  The request body must include a JSON object with the properties to update. Only the properties that are provided will be updated.  Currently it supports updating the following properties:  * `@UI.Hidden` - Hides the item from the UI. 
          * @summary Update a DriveItem.
          * @param {string} driveId key: id of drive
@@ -3684,6 +3748,18 @@ export const DriveItemApiFactory = function (configuration?: Configuration, base
          */
         getDriveItemContent(driveId: string, itemId: string, options?: RawAxiosRequestConfig): AxiosPromise<OdataError> {
             return localVarFp.getDriveItemContent(driveId, itemId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a DriveItem by using its ID.  Modeled on the MS Graph get driveItem endpoint (https://learn.microsoft.com/en-us/graph/api/driveitem-get). 
+         * @summary Get a DriveItem.
+         * @param {string} driveId key: id of drive
+         * @param {string} itemId key: id of item
+         * @param {Set<GetDriveItemV1SelectEnum>} [$select] Select additional properties to be returned.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDriveItemV1(driveId: string, itemId: string, $select?: Set<GetDriveItemV1SelectEnum>, options?: RawAxiosRequestConfig): AxiosPromise<DriveItem> {
+            return localVarFp.getDriveItemV1(driveId, itemId, $select, options).then((request) => request(axios, basePath));
         },
         /**
          * Update a DriveItem.  The request body must include a JSON object with the properties to update. Only the properties that are provided will be updated.  Currently it supports updating the following properties:  * `@UI.Hidden` - Hides the item from the UI. 
@@ -3777,6 +3853,20 @@ export class DriveItemApi extends BaseAPI {
     }
 
     /**
+     * Get a DriveItem by using its ID.  Modeled on the MS Graph get driveItem endpoint (https://learn.microsoft.com/en-us/graph/api/driveitem-get). 
+     * @summary Get a DriveItem.
+     * @param {string} driveId key: id of drive
+     * @param {string} itemId key: id of item
+     * @param {Set<GetDriveItemV1SelectEnum>} [$select] Select additional properties to be returned.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DriveItemApi
+     */
+    public getDriveItemV1(driveId: string, itemId: string, $select?: Set<GetDriveItemV1SelectEnum>, options?: RawAxiosRequestConfig) {
+        return DriveItemApiFp(this.configuration).getDriveItemV1(driveId, itemId, $select, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Update a DriveItem.  The request body must include a JSON object with the properties to update. Only the properties that are provided will be updated.  Currently it supports updating the following properties:  * `@UI.Hidden` - Hides the item from the UI. 
      * @summary Update a DriveItem.
      * @param {string} driveId key: id of drive
@@ -3815,6 +3905,14 @@ export const GetDriveItemSelectEnum = {
     LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
 } as const;
 export type GetDriveItemSelectEnum = typeof GetDriveItemSelectEnum[keyof typeof GetDriveItemSelectEnum];
+/**
+ * @export
+ */
+export const GetDriveItemV1SelectEnum = {
+    MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
+} as const;
+export type GetDriveItemV1SelectEnum = typeof GetDriveItemV1SelectEnum[keyof typeof GetDriveItemV1SelectEnum];
 
 
 /**

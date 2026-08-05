@@ -9,6 +9,7 @@ All URIs are relative to *https://localhost:9200/graph*
 |[**getDriveItem**](#getdriveitem) | **GET** /v1beta1/drives/{drive-id}/items/{item-id} | Get a DriveItem.|
 |[**getDriveItemChildren**](#getdriveitemchildren) | **GET** /v1.0/drives/{drive-id}/items/{item-id}/children | List children of a DriveItem|
 |[**getDriveItemContent**](#getdriveitemcontent) | **GET** /v1beta1/drives/{drive-id}/items/{item-id}/content | Download the content of a DriveItem|
+|[**getDriveItemV1**](#getdriveitemv1) | **GET** /v1.0/drives/{drive-id}/items/{item-id} | Get a DriveItem.|
 |[**updateDriveItem**](#updatedriveitem) | **PATCH** /v1beta1/drives/{drive-id}/items/{item-id} | Update a DriveItem.|
 
 # **createChildDriveItem**
@@ -300,6 +301,64 @@ const { status, data } = await apiInstance.getDriveItemContent(
 |-------------|-------------|------------------|
 |**302** | Pre-authenticated redirect to the file content. |  * Location - The pre-authenticated URL where the content can be downloaded. <br>  |
 |**404** | The driveItem was not found or is not a file. |  -  |
+|**0** | error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDriveItemV1**
+> DriveItem getDriveItemV1()
+
+Get a DriveItem by using its ID.  Modeled on the MS Graph get driveItem endpoint (https://learn.microsoft.com/en-us/graph/api/driveitem-get). 
+
+### Example
+
+```typescript
+import {
+    DriveItemApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new DriveItemApi(configuration);
+
+let driveId: string; //key: id of drive (default to undefined)
+let itemId: string; //key: id of item (default to undefined)
+let $select: Set<'@microsoft.graph.downloadUrl' | '@libre.graph.permissions.actions.allowedValues'>; //Select additional properties to be returned. (optional) (default to undefined)
+
+const { status, data } = await apiInstance.getDriveItemV1(
+    driveId,
+    itemId,
+    $select
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **driveId** | [**string**] | key: id of drive | defaults to undefined|
+| **itemId** | [**string**] | key: id of item | defaults to undefined|
+| **$select** | **Array<&#39;@microsoft.graph.downloadUrl&#39; &#124; &#39;@libre.graph.permissions.actions.allowedValues&#39;>** | Select additional properties to be returned. | (optional) defaults to undefined|
+
+
+### Return type
+
+**DriveItem**
+
+### Authorization
+
+[openId](../README.md#openId), [basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Retrieved driveItem |  -  |
 |**0** | error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
