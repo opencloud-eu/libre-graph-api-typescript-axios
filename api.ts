@@ -3384,10 +3384,11 @@ export const DriveItemApiAxiosParamCreator = function (configuration?: Configura
          * @summary List children of a DriveItem
          * @param {string} driveId key: id of drive
          * @param {string} itemId key: id of item
+         * @param {Set<GetDriveItemChildrenSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDriveItemChildren: async (driveId: string, itemId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getDriveItemChildren: async (driveId: string, itemId: string, $select?: Set<GetDriveItemChildrenSelectEnum>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'driveId' is not null or undefined
             assertParamExists('getDriveItemChildren', 'driveId', driveId)
             // verify required parameter 'itemId' is not null or undefined
@@ -3411,6 +3412,10 @@ export const DriveItemApiAxiosParamCreator = function (configuration?: Configura
             // authentication basicAuth required
             // http basic authentication required
             setBasicAuthToObject(localVarRequestOptions, configuration)
+
+            if ($select) {
+                localVarQueryParameter['$select'] = Array.from($select).join(COLLECTION_FORMATS.csv);
+            }
 
 
     
@@ -3627,11 +3632,12 @@ export const DriveItemApiFp = function(configuration?: Configuration) {
          * @summary List children of a DriveItem
          * @param {string} driveId key: id of drive
          * @param {string} itemId key: id of item
+         * @param {Set<GetDriveItemChildrenSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDriveItemChildren(driveId: string, itemId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionOfDriveItems>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getDriveItemChildren(driveId, itemId, options);
+        async getDriveItemChildren(driveId: string, itemId: string, $select?: Set<GetDriveItemChildrenSelectEnum>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionOfDriveItems>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDriveItemChildren(driveId, itemId, $select, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DriveItemApi.getDriveItemChildren']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -3732,11 +3738,12 @@ export const DriveItemApiFactory = function (configuration?: Configuration, base
          * @summary List children of a DriveItem
          * @param {string} driveId key: id of drive
          * @param {string} itemId key: id of item
+         * @param {Set<GetDriveItemChildrenSelectEnum>} [$select] Select additional properties to be returned.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDriveItemChildren(driveId: string, itemId: string, options?: RawAxiosRequestConfig): AxiosPromise<CollectionOfDriveItems> {
-            return localVarFp.getDriveItemChildren(driveId, itemId, options).then((request) => request(axios, basePath));
+        getDriveItemChildren(driveId: string, itemId: string, $select?: Set<GetDriveItemChildrenSelectEnum>, options?: RawAxiosRequestConfig): AxiosPromise<CollectionOfDriveItems> {
+            return localVarFp.getDriveItemChildren(driveId, itemId, $select, options).then((request) => request(axios, basePath));
         },
         /**
          * Download the contents of the primary stream (file) of a driveItem. Only driveItem objects with a `file` facet can be downloaded.  The response is a `302 Found` redirecting to a pre-authenticated download URL for the file. This is the same URL that is returned via the `@microsoft.graph.downloadUrl` instance annotation on the driveItem when requested via `$select`. Choose between the two based on whether you want to call the redirecting `/content` endpoint directly (for example, with a client that follows redirects automatically) or you want to inspect / schedule / prefetch the URL yourself via the annotation.  The pre-authenticated URL is short-lived and does not require an `Authorization` header.  To download a partial range of bytes, apply the `Range` header to the redirect target (the pre-authenticated URL), not to the `/content` request. 
@@ -3831,12 +3838,13 @@ export class DriveItemApi extends BaseAPI {
      * @summary List children of a DriveItem
      * @param {string} driveId key: id of drive
      * @param {string} itemId key: id of item
+     * @param {Set<GetDriveItemChildrenSelectEnum>} [$select] Select additional properties to be returned.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DriveItemApi
      */
-    public getDriveItemChildren(driveId: string, itemId: string, options?: RawAxiosRequestConfig) {
-        return DriveItemApiFp(this.configuration).getDriveItemChildren(driveId, itemId, options).then((request) => request(this.axios, this.basePath));
+    public getDriveItemChildren(driveId: string, itemId: string, $select?: Set<GetDriveItemChildrenSelectEnum>, options?: RawAxiosRequestConfig) {
+        return DriveItemApiFp(this.configuration).getDriveItemChildren(driveId, itemId, $select, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3905,6 +3913,14 @@ export const GetDriveItemSelectEnum = {
     LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
 } as const;
 export type GetDriveItemSelectEnum = typeof GetDriveItemSelectEnum[keyof typeof GetDriveItemSelectEnum];
+/**
+ * @export
+ */
+export const GetDriveItemChildrenSelectEnum = {
+    MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
+} as const;
+export type GetDriveItemChildrenSelectEnum = typeof GetDriveItemChildrenSelectEnum[keyof typeof GetDriveItemChildrenSelectEnum];
 /**
  * @export
  */
