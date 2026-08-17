@@ -748,6 +748,12 @@ export interface Drive {
      * @memberof Drive
      */
     '@libre.graph.hasTrashedItems'?: boolean;
+    /**
+     * Specifier for the web client that a drive has an associated extension that could potentially be opened by a specific web app (like a file extension). 
+     * @type {string}
+     * @memberof Drive
+     */
+    '@UI.extension'?: string;
 }
 /**
  * Represents a resource inside a drive. Read-only.
@@ -1187,6 +1193,12 @@ export interface DriveUpdate {
      * @memberof DriveUpdate
      */
     '@libre.graph.hasTrashedItems'?: boolean;
+    /**
+     * Specifier for the web client that a drive has an associated extension that could potentially be opened by a specific web app (like a file extension). 
+     * @type {string}
+     * @memberof DriveUpdate
+     */
+    '@UI.extension'?: string;
 }
 /**
  * And extension of group representing a class or course
