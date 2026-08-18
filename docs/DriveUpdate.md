@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **root** | [**DriveItem**](DriveItem.md) |  | [optional] [default to undefined]
 **special** | [**Array&lt;DriveItem&gt;**](DriveItem.md) | A collection of special drive resources. | [optional] [default to undefined]
 **libre_graph_hasTrashedItems** | **boolean** | Indicates whether the drive has items in the trash. Read-only. | [optional] [readonly] [default to undefined]
-**UI_extension** | **string** | Specifier for the web client that a drive has an associated extension that could potentially be opened by a specific web app (like a file extension).  | [optional] [default to undefined]
+**libre_graph_contentType** | **string** | Specifier for the web client that a drive is of a certain content type that could potentially be opened by a specific web app. Example: &#x60;application/vnd.opencloud.vault&#x60;, indicating the drive can be opened by the rclone-crypt web app.  | [optional] [default to undefined]
 
 ## Example
 
@@ -50,7 +50,7 @@ const instance: DriveUpdate = {
     root,
     special,
     libre_graph_hasTrashedItems,
-    UI_extension,
+    libre_graph_contentType,
 };
 ```
 

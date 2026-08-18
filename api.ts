@@ -793,11 +793,11 @@ export interface Drive {
      */
     '@libre.graph.hasTrashedItems'?: boolean;
     /**
-     * Specifier for the web client that a drive has an associated extension that could potentially be opened by a specific web app (like a file extension). 
+     * Specifier for the web client that a drive is of a certain content type that could potentially be opened by a specific web app. Example: `application/vnd.opencloud.vault`, indicating the drive can be opened by the rclone-crypt web app. 
      * @type {string}
      * @memberof Drive
      */
-    '@UI.extension'?: string;
+    '@libre.graph.contentType'?: string;
 }
 /**
  * Represents a resource inside a drive. Read-only.
@@ -1238,11 +1238,11 @@ export interface DriveUpdate {
      */
     '@libre.graph.hasTrashedItems'?: boolean;
     /**
-     * Specifier for the web client that a drive has an associated extension that could potentially be opened by a specific web app (like a file extension). 
+     * Specifier for the web client that a drive is of a certain content type that could potentially be opened by a specific web app. Example: `application/vnd.opencloud.vault`, indicating the drive can be opened by the rclone-crypt web app. 
      * @type {string}
      * @memberof DriveUpdate
      */
-    '@UI.extension'?: string;
+    '@libre.graph.contentType'?: string;
 }
 /**
  * And extension of group representing a class or course
