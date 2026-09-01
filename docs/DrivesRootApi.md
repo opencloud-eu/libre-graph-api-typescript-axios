@@ -71,7 +71,7 @@ const { status, data } = await apiInstance.createDriveItem(
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**200** | Response |  -  |
+|**201** | The created DriveItem. |  -  |
 |**0** | error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

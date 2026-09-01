@@ -1039,7 +1039,23 @@ export interface DriveItem {
      * @memberof DriveItem
      */
     '@libre.graph.permissions.actions.allowedValues'?: Array<string>;
+    /**
+     * The types of shares existing on this item, aggregated over all of its grants. Absent or empty if the item is not shared.  This is a summary of the item\'s `permissions` collection. For the full grants use the permissions endpoints, for the caller\'s own capabilities use `@libre.graph.permissions.actions.allowedValues`.  Only returned when explicitly requested via `$select`. 
+     * @type {Array<string>}
+     * @memberof DriveItem
+     */
+    '@libre.graph.shareTypes'?: Array<DriveItemLibreGraphShareTypesEnum>;
 }
+
+export const DriveItemLibreGraphShareTypesEnum = {
+    User: 'user',
+    Group: 'group',
+    Link: 'link',
+    Remote: 'remote'
+} as const;
+
+export type DriveItemLibreGraphShareTypesEnum = typeof DriveItemLibreGraphShareTypesEnum[keyof typeof DriveItemLibreGraphShareTypesEnum];
+
 /**
  * 
  * @export

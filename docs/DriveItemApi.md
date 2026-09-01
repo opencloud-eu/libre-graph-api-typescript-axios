@@ -72,7 +72,7 @@ const { status, data } = await apiInstance.createChildDriveItem(
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**200** | The created DriveItem. |  -  |
+|**201** | The created DriveItem. |  -  |
 |**400** | error |  -  |
 |**403** | error |  -  |
 |**404** | error |  -  |
