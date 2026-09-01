@@ -885,6 +885,12 @@ export interface DriveItem {
     'deleted'?: Deleted;
     /**
      * 
+     * @type {PendingOperations}
+     * @memberof DriveItem
+     */
+    'pendingOperations'?: PendingOperations;
+    /**
+     * 
      * @type {OpenGraphFile}
      * @memberof DriveItem
      */
@@ -2077,6 +2083,32 @@ export interface PasswordProfile {
      * @memberof PasswordProfile
      */
     'password'?: string;
+}
+/**
+ * Present while operations affecting the item\'s content have not completed, whether still queued or already running. While present, requests for the item\'s content fail, the content is withheld until processing completes and the facet disappears. 
+ * @export
+ * @interface PendingOperations
+ */
+export interface PendingOperations {
+    /**
+     * 
+     * @type {PendingOperationsPendingContentUpdate}
+     * @memberof PendingOperations
+     */
+    'pendingContentUpdate'?: PendingOperationsPendingContentUpdate;
+}
+/**
+ * An update to the item\'s content has not completed, for example post-processing such as virus scanning after an upload. MS Graph does not specify how reads behave while this is present; in OpenCloud content requests fail. 
+ * @export
+ * @interface PendingOperationsPendingContentUpdate
+ */
+export interface PendingOperationsPendingContentUpdate {
+    /**
+     * Time the operation was queued. May be absent. Read-only.
+     * @type {string}
+     * @memberof PendingOperationsPendingContentUpdate
+     */
+    'queuedDateTime'?: string;
 }
 /**
  * The Permission resource provides information about a sharing permission granted for a DriveItem resource.  ### Remarks  The Permission resource uses *facets* to provide information about the kind of permission represented by the resource.  Permissions with a `link` facet represent sharing links created on the item. Sharing links contain a unique token that provides access to the item for anyone with the link.  Permissions with a `invitation` facet represent permissions added by inviting specific users or groups to have access to the file. 

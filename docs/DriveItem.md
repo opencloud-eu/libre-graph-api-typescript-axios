@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **content** | **string** | The content stream, if the item represents a file. | [optional] [default to undefined]
 **cTag** | **string** | An eTag for the content of the item. This eTag is not changed if only the metadata is changed. Note This property is not returned if the item is a folder. Read-only. | [optional] [readonly] [default to undefined]
 **deleted** | [**Deleted**](Deleted.md) |  | [optional] [default to undefined]
+**pendingOperations** | [**PendingOperations**](PendingOperations.md) |  | [optional] [default to undefined]
 **file** | [**OpenGraphFile**](OpenGraphFile.md) |  | [optional] [default to undefined]
 **fileSystemInfo** | [**FileSystemInfo**](FileSystemInfo.md) |  | [optional] [default to undefined]
 **folder** | [**Folder**](Folder.md) |  | [optional] [default to undefined]
@@ -64,6 +65,7 @@ const instance: DriveItem = {
     content,
     cTag,
     deleted,
+    pendingOperations,
     file,
     fileSystemInfo,
     folder,
