@@ -1004,6 +1004,12 @@ export interface DriveItem {
      */
     '@libre.graph.livePhoto'?: LivePhoto;
     /**
+     * 
+     * @type {LockInfo}
+     * @memberof DriveItem
+     */
+    'lockInfo'?: LockInfo;
+    /**
      * Indicates if the item is synchronized with the underlying storage provider. Read-only.
      * @type {boolean}
      * @memberof DriveItem
@@ -1911,6 +1917,51 @@ export interface LivePhoto {
      */
     'vitalityScoringVersion'?: number;
 }
+/**
+ * Read-only lock metadata for a file, matching the MS Graph beta lockInfo resource. Indicates whether the file is locked, the kind of lock, when it was created, when it expires and who holds it. 
+ * @export
+ * @interface LockInfo
+ */
+export interface LockInfo {
+    /**
+     * The type of lock currently held on the file. OpenCloud currently only issues exclusive locks, same as MS Graph, even if it defines more. Read-only.
+     * @type {string}
+     * @memberof LockInfo
+     */
+    'lockType'?: LockInfoLockTypeEnum;
+    /**
+     * The date and time when the lock was created, in UTC. Read-only.
+     * @type {string}
+     * @memberof LockInfo
+     */
+    'createdDateTime'?: string;
+    /**
+     * The date and time when the lock expires, in UTC. Read-only.
+     * @type {string}
+     * @memberof LockInfo
+     */
+    'expirationDateTime'?: string;
+    /**
+     * The collection of users that currently hold the lock on the file. Read-only.
+     * @type {Array<Identity>}
+     * @memberof LockInfo
+     */
+    'owners'?: Array<Identity>;
+    /**
+     * Name of the application holding the lock, for example an office application. Not part of MS Graph. Read-only.
+     * @type {string}
+     * @memberof LockInfo
+     */
+    '@libre.graph.appName'?: string;
+}
+
+export const LockInfoLockTypeEnum = {
+    None: 'none',
+    Exclusive: 'exclusive'
+} as const;
+
+export type LockInfoLockTypeEnum = typeof LockInfoLockTypeEnum[keyof typeof LockInfoLockTypeEnum];
+
 /**
  * 
  * @export
