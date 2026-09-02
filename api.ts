@@ -1133,6 +1133,12 @@ export interface DriveItemInvite {
  */
 export interface DriveRecipient {
     /**
+     * The email address for the recipient, if the recipient has an associated email address.
+     * @type {string}
+     * @memberof DriveRecipient
+     */
+    'email'?: string;
+    /**
      * The unique identifier for the recipient in the directory.
      * @type {string}
      * @memberof DriveRecipient
