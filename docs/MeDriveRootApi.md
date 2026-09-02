@@ -22,9 +22,11 @@ const configuration = new Configuration();
 const apiInstance = new MeDriveRootApi(configuration);
 
 let $select: Set<'@microsoft.graph.downloadUrl' | '@libre.graph.permissions.actions.allowedValues'>; //Select additional properties to be returned. (optional) (default to undefined)
+let $expand: Set<'children'>; //Expand related entities to be returned. (optional) (default to undefined)
 
 const { status, data } = await apiInstance.homeGetRoot(
-    $select
+    $select,
+    $expand
 );
 ```
 
@@ -33,6 +35,7 @@ const { status, data } = await apiInstance.homeGetRoot(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **$select** | **Array<&#39;@microsoft.graph.downloadUrl&#39; &#124; &#39;@libre.graph.permissions.actions.allowedValues&#39;>** | Select additional properties to be returned. | (optional) defaults to undefined|
+| **$expand** | **Array<&#39;children&#39;>** | Expand related entities to be returned. | (optional) defaults to undefined|
 
 
 ### Return type
