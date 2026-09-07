@@ -4087,14 +4087,16 @@ export type CreateChildDriveItemLibreGraphMissingParentsBehaviorEnum = typeof Cr
  */
 export const GetDriveItemSelectEnum = {
     MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
-    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues',
+    LibreGraphShareTypes: '@libre.graph.shareTypes'
 } as const;
 export type GetDriveItemSelectEnum = typeof GetDriveItemSelectEnum[keyof typeof GetDriveItemSelectEnum];
 /**
  * @export
  */
 export const GetDriveItemExpandEnum = {
-    Children: 'children'
+    Children: 'children',
+    Thumbnails: 'thumbnails'
 } as const;
 export type GetDriveItemExpandEnum = typeof GetDriveItemExpandEnum[keyof typeof GetDriveItemExpandEnum];
 /**
@@ -4102,7 +4104,8 @@ export type GetDriveItemExpandEnum = typeof GetDriveItemExpandEnum[keyof typeof 
  */
 export const GetDriveItemChildrenSelectEnum = {
     MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
-    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues',
+    LibreGraphShareTypes: '@libre.graph.shareTypes'
 } as const;
 export type GetDriveItemChildrenSelectEnum = typeof GetDriveItemChildrenSelectEnum[keyof typeof GetDriveItemChildrenSelectEnum];
 /**
@@ -4110,14 +4113,16 @@ export type GetDriveItemChildrenSelectEnum = typeof GetDriveItemChildrenSelectEn
  */
 export const GetDriveItemV1SelectEnum = {
     MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
-    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues',
+    LibreGraphShareTypes: '@libre.graph.shareTypes'
 } as const;
 export type GetDriveItemV1SelectEnum = typeof GetDriveItemV1SelectEnum[keyof typeof GetDriveItemV1SelectEnum];
 /**
  * @export
  */
 export const GetDriveItemV1ExpandEnum = {
-    Children: 'children'
+    Children: 'children',
+    Thumbnails: 'thumbnails'
 } as const;
 export type GetDriveItemV1ExpandEnum = typeof GetDriveItemV1ExpandEnum[keyof typeof GetDriveItemV1ExpandEnum];
 
@@ -6302,14 +6307,16 @@ export type CreateDriveItemLibreGraphMissingParentsBehaviorEnum = typeof CreateD
  */
 export const GetRootSelectEnum = {
     MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
-    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues',
+    LibreGraphShareTypes: '@libre.graph.shareTypes'
 } as const;
 export type GetRootSelectEnum = typeof GetRootSelectEnum[keyof typeof GetRootSelectEnum];
 /**
  * @export
  */
 export const GetRootExpandEnum = {
-    Children: 'children'
+    Children: 'children',
+    Thumbnails: 'thumbnails'
 } as const;
 export type GetRootExpandEnum = typeof GetRootExpandEnum[keyof typeof GetRootExpandEnum];
 /**
@@ -10317,14 +10324,16 @@ export class MeDriveRootApi extends BaseAPI {
  */
 export const HomeGetRootSelectEnum = {
     MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
-    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues',
+    LibreGraphShareTypes: '@libre.graph.shareTypes'
 } as const;
 export type HomeGetRootSelectEnum = typeof HomeGetRootSelectEnum[keyof typeof HomeGetRootSelectEnum];
 /**
  * @export
  */
 export const HomeGetRootExpandEnum = {
-    Children: 'children'
+    Children: 'children',
+    Thumbnails: 'thumbnails'
 } as const;
 export type HomeGetRootExpandEnum = typeof HomeGetRootExpandEnum[keyof typeof HomeGetRootExpandEnum];
 
@@ -10447,7 +10456,8 @@ export class MeDriveRootChildrenApi extends BaseAPI {
  */
 export const HomeGetChildrenSelectEnum = {
     MicrosoftGraphDownloadUrl: '@microsoft.graph.downloadUrl',
-    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues'
+    LibreGraphPermissionsActionsAllowedValues: '@libre.graph.permissions.actions.allowedValues',
+    LibreGraphShareTypes: '@libre.graph.shareTypes'
 } as const;
 export type HomeGetChildrenSelectEnum = typeof HomeGetChildrenSelectEnum[keyof typeof HomeGetChildrenSelectEnum];
 

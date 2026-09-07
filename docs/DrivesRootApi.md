@@ -259,8 +259,8 @@ const configuration = new Configuration();
 const apiInstance = new DrivesRootApi(configuration);
 
 let driveId: string; //key: id of drive (default to undefined)
-let $select: Set<'@microsoft.graph.downloadUrl' | '@libre.graph.permissions.actions.allowedValues'>; //Select additional properties to be returned. (optional) (default to undefined)
-let $expand: Set<'children'>; //Expand related entities to be returned. (optional) (default to undefined)
+let $select: Set<'@microsoft.graph.downloadUrl' | '@libre.graph.permissions.actions.allowedValues' | '@libre.graph.shareTypes'>; //Select additional properties to be returned. (optional) (default to undefined)
+let $expand: Set<'children' | 'thumbnails'>; //Expand related entities to be returned. (optional) (default to undefined)
 
 const { status, data } = await apiInstance.getRoot(
     driveId,
@@ -274,8 +274,8 @@ const { status, data } = await apiInstance.getRoot(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **driveId** | [**string**] | key: id of drive | defaults to undefined|
-| **$select** | **Array<&#39;@microsoft.graph.downloadUrl&#39; &#124; &#39;@libre.graph.permissions.actions.allowedValues&#39;>** | Select additional properties to be returned. | (optional) defaults to undefined|
-| **$expand** | **Array<&#39;children&#39;>** | Expand related entities to be returned. | (optional) defaults to undefined|
+| **$select** | **Array<&#39;@microsoft.graph.downloadUrl&#39; &#124; &#39;@libre.graph.permissions.actions.allowedValues&#39; &#124; &#39;@libre.graph.shareTypes&#39;>** | Select additional properties to be returned. | (optional) defaults to undefined|
+| **$expand** | **Array<&#39;children&#39; &#124; &#39;thumbnails&#39;>** | Expand related entities to be returned. | (optional) defaults to undefined|
 
 
 ### Return type
