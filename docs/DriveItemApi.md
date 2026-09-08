@@ -139,7 +139,7 @@ void (empty response body)
 # **getDriveItem**
 > DriveItem getDriveItem()
 
-Get a DriveItem by using its ID. 
+Get a DriveItem by using its ID.  This endpoint also accepts the MS Graph colon-syntax URL forms:      GET /v1beta1/drives/{drive-id}/root:/{path}     GET /v1beta1/drives/{drive-id}/items/{item-id}:/{path}  OpenAPI cannot express the colon-delimited path segment, so these URL forms are not represented as separate operations in this specification. The server still accepts them and resolves `:/{path}` as the item to return. A trailing `:` terminator is accepted as well. 
 
 ### Example
 
@@ -314,7 +314,7 @@ const { status, data } = await apiInstance.getDriveItemContent(
 # **getDriveItemV1**
 > DriveItem getDriveItemV1()
 
-Get a DriveItem by using its ID.  Modeled on the MS Graph get driveItem endpoint (https://learn.microsoft.com/en-us/graph/api/driveitem-get). 
+Get a DriveItem by using its ID.  Modeled on the MS Graph get driveItem endpoint (https://learn.microsoft.com/en-us/graph/api/driveitem-get).  This endpoint also accepts the MS Graph colon-syntax URL forms:      GET /v1.0/drives/{drive-id}/root:/{path}     GET /v1.0/drives/{drive-id}/items/{item-id}:/{path}  OpenAPI cannot express the colon-delimited path segment, so these URL forms are not represented as separate operations in this specification. The server still accepts them and resolves `:/{path}` as the item to return. A trailing `:` terminator is accepted as well. 
 
 ### Example
 
