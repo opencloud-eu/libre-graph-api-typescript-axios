@@ -65,6 +65,10 @@ docs/GeoCoordinates.md
 docs/Group.md
 docs/GroupApi.md
 docs/GroupsApi.md
+docs/GuestLinkError.md
+docs/GuestLinkRedeemRequest.md
+docs/GuestLinkRedeemResponse.md
+docs/GuestLinksApi.md
 docs/Hashes.md
 docs/Identity.md
 docs/IdentitySet.md

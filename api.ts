@@ -1652,6 +1652,71 @@ export interface Group {
     'members@odata.bind'?: Set<string>;
 }
 /**
+ * Error returned by the guest link redeem endpoint.
+ * @export
+ * @interface GuestLinkError
+ */
+export interface GuestLinkError {
+    /**
+     * Machine-readable error identifier.
+     * @type {string}
+     * @memberof GuestLinkError
+     */
+    'errorType': GuestLinkErrorErrorTypeEnum;
+    /**
+     * Human-readable error message.
+     * @type {string}
+     * @memberof GuestLinkError
+     */
+    'message': string;
+    /**
+     * Permission (share) identifier related to the error, when known.
+     * @type {string}
+     * @memberof GuestLinkError
+     */
+    'permissionId': string;
+}
+
+export const GuestLinkErrorErrorTypeEnum = {
+    TokenInvalid: 'tokenInvalid',
+    TokenNotFound: 'tokenNotFound',
+    TokenExpired: 'tokenExpired',
+    TokenAlreadyRedeemed: 'tokenAlreadyRedeemed',
+    ShareNotFound: 'shareNotFound',
+    ShareExpired: 'shareExpired',
+    InvalidRequest: 'invalidRequest',
+    InternalError: 'internalError'
+} as const;
+
+export type GuestLinkErrorErrorTypeEnum = typeof GuestLinkErrorErrorTypeEnum[keyof typeof GuestLinkErrorErrorTypeEnum];
+
+/**
+ * Request body for redeeming a guest link token.
+ * @export
+ * @interface GuestLinkRedeemRequest
+ */
+export interface GuestLinkRedeemRequest {
+    /**
+     * One-time guest link token received from the guest link.
+     * @type {string}
+     * @memberof GuestLinkRedeemRequest
+     */
+    'token': string;
+}
+/**
+ * Response body for a successful guest link redemption.
+ * @export
+ * @interface GuestLinkRedeemResponse
+ */
+export interface GuestLinkRedeemResponse {
+    /**
+     * Identifier of the share (permission) the guest was invited to.
+     * @type {string}
+     * @memberof GuestLinkRedeemResponse
+     */
+    'permissionId': string;
+}
+/**
  * Hashes of the file\'s binary content, if available. Read-only.
  * @export
  * @interface Hashes
@@ -9400,6 +9465,122 @@ export const ListGroupsExpandEnum = {
     Members: 'members'
 } as const;
 export type ListGroupsExpandEnum = typeof ListGroupsExpandEnum[keyof typeof ListGroupsExpandEnum];
+
+
+/**
+ * GuestLinksApi - axios parameter creator
+ * @export
+ */
+export const GuestLinksApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Redeem a guest link token to obtain a guest session.
+         * @summary Redeem a guest link token
+         * @param {GuestLinkRedeemRequest} guestLinkRedeemRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        redeemGuestLink: async (guestLinkRedeemRequest: GuestLinkRedeemRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'guestLinkRedeemRequest' is not null or undefined
+            assertParamExists('redeemGuestLink', 'guestLinkRedeemRequest', guestLinkRedeemRequest)
+            const localVarPath = `/v1beta1/extensions/org.libregraph/guestLinks/redeem`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(guestLinkRedeemRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * GuestLinksApi - functional programming interface
+ * @export
+ */
+export const GuestLinksApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = GuestLinksApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Redeem a guest link token to obtain a guest session.
+         * @summary Redeem a guest link token
+         * @param {GuestLinkRedeemRequest} guestLinkRedeemRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async redeemGuestLink(guestLinkRedeemRequest: GuestLinkRedeemRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GuestLinkRedeemResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.redeemGuestLink(guestLinkRedeemRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GuestLinksApi.redeemGuestLink']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * GuestLinksApi - factory interface
+ * @export
+ */
+export const GuestLinksApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = GuestLinksApiFp(configuration)
+    return {
+        /**
+         * Redeem a guest link token to obtain a guest session.
+         * @summary Redeem a guest link token
+         * @param {GuestLinkRedeemRequest} guestLinkRedeemRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        redeemGuestLink(guestLinkRedeemRequest: GuestLinkRedeemRequest, options?: RawAxiosRequestConfig): AxiosPromise<GuestLinkRedeemResponse> {
+            return localVarFp.redeemGuestLink(guestLinkRedeemRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * GuestLinksApi - object-oriented interface
+ * @export
+ * @class GuestLinksApi
+ * @extends {BaseAPI}
+ */
+export class GuestLinksApi extends BaseAPI {
+    /**
+     * Redeem a guest link token to obtain a guest session.
+     * @summary Redeem a guest link token
+     * @param {GuestLinkRedeemRequest} guestLinkRedeemRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GuestLinksApi
+     */
+    public redeemGuestLink(guestLinkRedeemRequest: GuestLinkRedeemRequest, options?: RawAxiosRequestConfig) {
+        return GuestLinksApiFp(this.configuration).redeemGuestLink(guestLinkRedeemRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 
 /**
