@@ -125,7 +125,7 @@ export interface ActivityTopic {
     'value': string;
 }
 /**
- * Specifies an aggregation that should be computed and returned alongside search results. Follows the [MS Graph aggregationOption](https://learn.microsoft.com/en-us/graph/api/resources/aggregationoption) resource type.  For string fields, terms aggregations return the distinct values and their counts. For numeric and date fields, range aggregations can be defined using the `ranges` property of `bucketDefinition`. 
+ * Specifies an aggregation that should be computed and returned alongside search results. Follows the [MS Graph aggregationOption](https://learn.microsoft.com/en-us/graph/api/resources/aggregationoption) resource type.  For string fields, terms aggregations return the distinct values and their counts. For numeric and date fields, range aggregations can be defined using the `ranges` property of `bucketDefinition`.  At most one of `bucketDefinition`, `@libre.graph.metricDefinition` and `@libre.graph.geohashDefinition` may be set; requests specifying more than one are rejected with `invalidRequest`. 
  * @export
  * @interface AggregationOption
  */
@@ -137,7 +137,7 @@ export interface AggregationOption {
      */
     'field': string;
     /**
-     * The number of `searchBucket` resources to be returned. This is optional and only applies to terms aggregations. Combined with `bucketDefinition.sortBy` and `bucketDefinition.isDescending` to produce the top N results by count or key. When not specified, all buckets are returned. 
+     * The number of `searchBucket` resources to be returned. This is optional and only applies to terms and geohash aggregations. For terms aggregations it combines with `bucketDefinition.sortBy` and `bucketDefinition.isDescending` to produce the top N results by count or key; for geohash aggregations it limits the buckets to the top N cells by count. When not specified, all buckets are returned. 
      * @type {number}
      * @memberof AggregationOption
      */
@@ -160,6 +160,12 @@ export interface AggregationOption {
      * @memberof AggregationOption
      */
     '@libre.graph.metricDefinition'?: MetricDefinition;
+    /**
+     * 
+     * @type {GeohashDefinition}
+     * @memberof AggregationOption
+     */
+    '@libre.graph.geohashDefinition'?: GeohashDefinition;
 }
 /**
  * 
@@ -1705,6 +1711,19 @@ export interface GeoCoordinates {
     'longitude'?: number;
 }
 /**
+ * Provides the details of how to compute a geohash-grid aggregation over `field`, which must resolve to a geo-point field (e.g. `location`). When set on an `aggregationOption`, each `searchBucket` of the corresponding `searchAggregation` carries a geohash cell as its `key`, with `count` holding the number of matches in the cell, suitable for density/heatmap rendering. `size` limits the buckets to the top N cells by count. Libregraph extension not present in MS Graph. 
+ * @export
+ * @interface GeohashDefinition
+ */
+export interface GeohashDefinition {
+    /**
+     * The geohash length of the returned cells (1-12); higher means finer cells. Required. 
+     * @type {number}
+     * @memberof GeohashDefinition
+     */
+    'precision': number;
+}
+/**
  * 
  * @export
  * @interface Group
@@ -2137,7 +2156,7 @@ export interface MemberReference {
     '@odata.id'?: string;
 }
 /**
- * Provides the details of how to compute a scalar metric over the aggregation `field`, the counterpart of `bucketDefinition` for metric aggregations. When set on an `aggregationOption`, `size` and `bucketDefinition` are ignored, and the corresponding `searchAggregation` in the response carries a `@libre.graph.metric` rather than `buckets`. Libregraph extension not present in MS Graph. 
+ * Provides the details of how to compute a scalar metric over the aggregation `field`, the counterpart of `bucketDefinition` for metric aggregations. When set on an `aggregationOption`, `size` is ignored, and the corresponding `searchAggregation` in the response carries a `@libre.graph.metric` rather than `buckets`. Libregraph extension not present in MS Graph. 
  * @export
  * @interface MetricDefinition
  */
@@ -2692,7 +2711,7 @@ export interface SearchAggregation {
      */
     'field'?: string;
     /**
-     * Defines the computed buckets for this aggregation. Buckets are sorted according to the `sortBy` and `isDescending` specified in the `bucketDefinition` of the corresponding `aggregationOption`. 
+     * Defines the computed buckets for this aggregation. For bucket aggregations they are sorted according to the `sortBy` and `isDescending` specified in the `bucketDefinition` of the corresponding `aggregationOption`; for geohash aggregations they are ordered by `count`, descending. 
      * @type {Array<SearchBucket>}
      * @memberof SearchAggregation
      */
@@ -2711,7 +2730,7 @@ export interface SearchAggregation {
  */
 export interface SearchBucket {
     /**
-     * The discrete value of the field that was used to compute the aggregation. For terms aggregations this is the field value. For range aggregations this is a string representation of the range. 
+     * The discrete value of the field that was used to compute the aggregation. For terms aggregations this is the field value. For range aggregations this is a string representation of the range. For geohash aggregations this is a geohash cell. 
      * @type {string}
      * @memberof SearchBucket
      */
@@ -2723,7 +2742,7 @@ export interface SearchBucket {
      */
     'count'?: number;
     /**
-     * A token containing the encoded filter that narrows search matches to this bucket. To use it, pass it as part of the `aggregationFilters` property of a subsequent `searchRequest` in the format `{field}:{aggregationFilterToken}`. The filter matches the bucket `key` exactly and case-sensitively, so the narrowed result set is the set of matches counted in this bucket.  For terms buckets the token is the key encoded as lowercase hex of its UTF-8 bytes, prefixed with `ǂǂ` (U+01C2 twice) and wrapped in double quotes, e.g. `\"ǂǂ5361786f6e\"` for the key `Saxon`. For range buckets the token is `range({from}, {to})` with the bounds of the matching `bucketAggregationRange`; an open lower bound is written as `min`, an open upper bound as `max` followed by `to=\"le\"`, e.g. `range(min, 1980)`, `range(1980, 1990)` and `range(2010, max, to=\"le\")`. This is the same encoding MS Graph uses. 
+     * A token containing the encoded filter that narrows search matches to this bucket. To use it, pass it as part of the `aggregationFilters` property of a subsequent `searchRequest` in the format `{field}:{aggregationFilterToken}`. The filter matches the bucket `key` exactly and case-sensitively, so the narrowed result set is the set of matches counted in this bucket.  For terms buckets the token is the key encoded as lowercase hex of its UTF-8 bytes, prefixed with `ǂǂ` (U+01C2 twice) and wrapped in double quotes, e.g. `\"ǂǂ5361786f6e\"` for the key `Saxon`. For range buckets the token is `range({from}, {to})` with the bounds of the matching `bucketAggregationRange`; an open lower bound is written as `min`, an open upper bound as `max` followed by `to=\"le\"`, e.g. `range(min, 1980)`, `range(1980, 1990)` and `range(2010, max, to=\"le\")`. This is the same encoding MS Graph uses. Geohash buckets carry no token; narrow by location through the search query instead. 
      * @type {string}
      * @memberof SearchBucket
      */
@@ -2798,7 +2817,7 @@ export interface SearchHitsContainer {
     'aggregations'?: Array<SearchAggregation>;
 }
 /**
- * The result of a metric aggregation, the counterpart of `buckets` for aggregations requested with a `@libre.graph.metricDefinition`. Absent for terms and range aggregations. Libregraph extension not present in MS Graph. 
+ * The result of a metric aggregation, the counterpart of `buckets` for aggregations requested with a `@libre.graph.metricDefinition`. Absent for terms, range and geohash aggregations. Libregraph extension not present in MS Graph. 
  * @export
  * @interface SearchMetric
  */

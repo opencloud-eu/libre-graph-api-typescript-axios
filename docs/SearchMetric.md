@@ -1,6 +1,6 @@
 # SearchMetric
 
-The result of a metric aggregation, the counterpart of `buckets` for aggregations requested with a `@libre.graph.metricDefinition`. Absent for terms and range aggregations. Libregraph extension not present in MS Graph. 
+The result of a metric aggregation, the counterpart of `buckets` for aggregations requested with a `@libre.graph.metricDefinition`. Absent for terms, range and geohash aggregations. Libregraph extension not present in MS Graph. 
 
 ## Properties
 

@@ -1,6 +1,6 @@
 # MetricDefinition
 
-Provides the details of how to compute a scalar metric over the aggregation `field`, the counterpart of `bucketDefinition` for metric aggregations. When set on an `aggregationOption`, `size` and `bucketDefinition` are ignored, and the corresponding `searchAggregation` in the response carries a `@libre.graph.metric` rather than `buckets`. Libregraph extension not present in MS Graph. 
+Provides the details of how to compute a scalar metric over the aggregation `field`, the counterpart of `bucketDefinition` for metric aggregations. When set on an `aggregationOption`, `size` is ignored, and the corresponding `searchAggregation` in the response carries a `@libre.graph.metric` rather than `buckets`. Libregraph extension not present in MS Graph. 
 
 ## Properties
 
