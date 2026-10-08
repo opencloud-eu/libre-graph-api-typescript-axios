@@ -1,6 +1,6 @@
-# GuestLinkRedeemRequest
+# GuestLinkVerifyTokenRequest
 
-Request body for redeeming a guest link token.
+Request body for verifying a guest link token.
 
 ## Properties
 
@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { GuestLinkRedeemRequest } from './api';
+import { GuestLinkVerifyTokenRequest } from './api';
 
-const instance: GuestLinkRedeemRequest = {
+const instance: GuestLinkVerifyTokenRequest = {
     token,
 };
 ```

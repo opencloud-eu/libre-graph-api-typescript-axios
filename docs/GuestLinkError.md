@@ -1,6 +1,6 @@
 # GuestLinkError
 
-Error returned by the guest link redeem endpoint.
+Error returned by a guest link endpoint.
 
 ## Properties
 

@@ -1,6 +1,6 @@
-# GuestLinkRedeemResponse
+# GuestLinkSessionResponse
 
-Response body for a successful guest link redemption.
+Response body for a successful guest link authentication: the share (permission) id the guest was invited to. A session cookie is set via the Set-Cookie header.
 
 ## Properties
 
@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { GuestLinkRedeemResponse } from './api';
+import { GuestLinkSessionResponse } from './api';
 
-const instance: GuestLinkRedeemResponse = {
+const instance: GuestLinkSessionResponse = {
     permissionId,
 };
 ```
