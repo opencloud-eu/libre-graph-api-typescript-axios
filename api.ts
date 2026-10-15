@@ -1829,7 +1829,7 @@ export interface GuestLinkRenewRequest {
     'token'?: string;
 }
 /**
- * Response body for a successful guest link authentication: the share (permission) id the guest was invited to. A session cookie is set via the Set-Cookie header.
+ * Response body for a successful guest link authentication: the share (permission) id the guest was invited to and the expiry of the guest session. A session cookie is set via the Set-Cookie header.
  * @export
  * @interface GuestLinkSessionResponse
  */
@@ -1840,6 +1840,12 @@ export interface GuestLinkSessionResponse {
      * @memberof GuestLinkSessionResponse
      */
     'permissionId': string;
+    /**
+     * The date and time when the guest session expires, in UTC. After that the guest has to renew the guest link.
+     * @type {string}
+     * @memberof GuestLinkSessionResponse
+     */
+    'expirationDateTime': string;
 }
 /**
  * Request body for verifying a guest link PIN.
