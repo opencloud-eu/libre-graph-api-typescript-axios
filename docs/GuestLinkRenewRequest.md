@@ -1,13 +1,12 @@
 # GuestLinkRenewRequest
 
-Request body for renewing a guest link. Besides the share (permission) id, the previous guest link token or a (possibly expired) guest session cookie is required to authorize the renewal.
+Request body for renewing a guest link. Only the share (permission) id is sent; the request is authorized by the guest session cookie when one is present.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **permissionId** | **string** | Identifier of the share (permission) the guest was invited to. | [default to undefined]
-**token** | **string** | Previous guest link token. Optional when the guest session cookie is sent instead. | [optional] [default to undefined]
 
 ## Example
 
@@ -16,7 +15,6 @@ import { GuestLinkRenewRequest } from './api';
 
 const instance: GuestLinkRenewRequest = {
     permissionId,
-    token,
 };
 ```
 

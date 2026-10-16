@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **errorType** | **string** | Machine-readable error identifier. | [default to undefined]
 **message** | **string** | Human-readable error message. | [default to undefined]
 **permissionId** | **string** | Permission (share) identifier related to the error, when known. | [default to undefined]
+**retryAfter** | **number** | Number of seconds the client should wait before retrying. Present on rate-limited (429) responses and mirrored in the Retry-After response header. | [optional] [default to undefined]
 
 ## Example
 
@@ -19,6 +20,7 @@ const instance: GuestLinkError = {
     errorType,
     message,
     permissionId,
+    retryAfter,
 };
 ```
 
