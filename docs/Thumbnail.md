@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **sourceItemId** | **string** | The unique identifier of the item that provided the thumbnail. This is only available when a folder thumbnail is requested. | [optional] [default to undefined]
 **url** | **string** | The URL used to fetch the thumbnail content. | [optional] [default to undefined]
 **width** | **number** | The width of the thumbnail, in pixels. | [optional] [default to undefined]
+**libre_graph_mimeType** | **string** | The mime type the thumbnail is served in, e.g. &#x60;image/png&#x60;. It can differ from the mime type of the item the thumbnail belongs to, for example when the thumbnail is an image taken from inside the item, such as the cover art of an audio file.  | [optional] [default to undefined]
 
 ## Example
 
@@ -23,6 +24,7 @@ const instance: Thumbnail = {
     sourceItemId,
     url,
     width,
+    libre_graph_mimeType,
 };
 ```
 

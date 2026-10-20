@@ -3231,6 +3231,12 @@ export interface Thumbnail {
      * @memberof Thumbnail
      */
     'width'?: number;
+    /**
+     * The mime type the thumbnail is served in, e.g. `image/png`. It can differ from the mime type of the item the thumbnail belongs to, for example when the thumbnail is an image taken from inside the item, such as the cover art of an audio file. 
+     * @type {string}
+     * @memberof Thumbnail
+     */
+    '@libre.graph.mimeType'?: string;
 }
 /**
  * The ThumbnailSet resource is a keyed collection of thumbnail resources. It\'s used to represent a set of thumbnails associated with a DriveItem. 
