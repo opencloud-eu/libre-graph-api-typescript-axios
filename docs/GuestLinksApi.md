@@ -4,9 +4,55 @@ All URIs are relative to *https://localhost:9200/graph*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
+|[**logoutGuestLink**](#logoutguestlink) | **POST** /v1beta1/extensions/org.libregraph/guestLinks/logout | Log out of a guest session|
 |[**renewGuestLink**](#renewguestlink) | **POST** /v1beta1/extensions/org.libregraph/guestLinks/renew | Renew a guest link|
 |[**verifyGuestLinkPin**](#verifyguestlinkpin) | **POST** /v1beta1/extensions/org.libregraph/guestLinks/verify/pin | Verify a guest link PIN|
 |[**verifyGuestLinkToken**](#verifyguestlinktoken) | **POST** /v1beta1/extensions/org.libregraph/guestLinks/verify/token | Verify a guest link token|
+
+# **logoutGuestLink**
+> logoutGuestLink()
+
+End the guest session in this browser by clearing the guest session cookie. The session token itself stays valid until it expires. The request succeeds without a session cookie as well.
+
+### Example
+
+```typescript
+import {
+    GuestLinksApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new GuestLinksApi(configuration);
+
+const { status, data } = await apiInstance.logoutGuestLink();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[openId](../README.md#openId), [basicAuth](../README.md#basicAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Success. The guest session cookie is cleared via the Set-Cookie header. |  * Set-Cookie - Clears the guest session cookie &#x60;__Host-oc_guest_session&#x60;. <br>  |
+|**0** | error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **renewGuestLink**
 > renewGuestLink(guestLinkRenewRequest)
@@ -56,7 +102,7 @@ void (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**200** | Success. The response has an empty body. When a valid session authorized the renewal the renewed nonce is returned in the Set-Cookie header and must be sent back to the verify pin endpoint; a silent renewal (no session) sets no cookie. |  * Set-Cookie - Sets the guest session cookie &#x60;__Host-oc_guest_session&#x60; and clears the per-share nonce cookie &#x60;__Host-oc_guest_nonce_&lt;share-hash&gt;&#x60;. <br>  |
+|**200** | Success. The response has an empty body. When a valid session authorized the renewal the renewed nonce is returned in the Set-Cookie header and must be sent back to the verify pin endpoint; a silent renewal (no session) sets no cookie. |  * Set-Cookie - Clears the guest session cookie &#x60;__Host-oc_guest_session&#x60;. <br>  |
 |**400** | The request body is malformed or a required field is missing. |  -  |
 |**404** | The guest link record or the referenced share could not be found. |  -  |
 |**409** | The guest link record was updated concurrently; the client should retry the renewal. |  -  |
@@ -119,7 +165,7 @@ const { status, data } = await apiInstance.verifyGuestLinkPin(
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**200** | Success. A guest session cookie is set and the nonce cookie is cleared via the Set-Cookie header. |  * Set-Cookie - Sets the guest session cookie &#x60;__Host-oc_guest_session&#x60; and clears the per-share nonce cookie &#x60;__Host-oc_guest_nonce_&lt;share-hash&gt;&#x60;. <br>  |
+|**200** | Success. A guest session cookie is set and the nonce cookie is cleared via the Set-Cookie header. |  * Set-Cookie - Clears the guest session cookie &#x60;__Host-oc_guest_session&#x60;. <br>  |
 |**400** | The request body is malformed or the nonce cookie is missing. |  -  |
 |**401** | The nonce or the PIN is invalid or has expired. |  -  |
 |**404** | The guest link record or the referenced share could not be found. |  -  |
@@ -178,7 +224,7 @@ const { status, data } = await apiInstance.verifyGuestLinkToken(
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**200** | Success |  * Set-Cookie - Sets the guest session cookie &#x60;__Host-oc_guest_session&#x60; and clears the per-share nonce cookie &#x60;__Host-oc_guest_nonce_&lt;share-hash&gt;&#x60;. <br>  |
+|**200** | Success |  * Set-Cookie - Clears the guest session cookie &#x60;__Host-oc_guest_session&#x60;. <br>  |
 |**400** | The request body is malformed. |  -  |
 |**401** | The token is invalid or has expired. |  -  |
 |**404** | The token or the referenced share could not be found. |  -  |

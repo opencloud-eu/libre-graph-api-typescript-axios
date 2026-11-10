@@ -9950,6 +9950,42 @@ export type ListGroupsExpandEnum = typeof ListGroupsExpandEnum[keyof typeof List
 export const GuestLinksApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * End the guest session in this browser by clearing the guest session cookie. The session token itself stays valid until it expires. The request succeeds without a session cookie as well.
+         * @summary Log out of a guest session
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        logoutGuestLink: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1beta1/extensions/org.libregraph/guestLinks/logout`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Renew a guest link. When the request carries a valid guest session cookie (possibly expired), a new link token and PIN are generated, the renewal event is published so the guest can be notified, and the nonce cookie that binds the PIN to the browser is set. Without a valid session the link token is rotated silently: no new PIN is generated, no nonce cookie is set, and the request is rate limited.
          * @summary Renew a guest link
          * @param {GuestLinkRenewRequest} guestLinkRenewRequest 
@@ -10089,6 +10125,18 @@ export const GuestLinksApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = GuestLinksApiAxiosParamCreator(configuration)
     return {
         /**
+         * End the guest session in this browser by clearing the guest session cookie. The session token itself stays valid until it expires. The request succeeds without a session cookie as well.
+         * @summary Log out of a guest session
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async logoutGuestLink(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.logoutGuestLink(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['GuestLinksApi.logoutGuestLink']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Renew a guest link. When the request carries a valid guest session cookie (possibly expired), a new link token and PIN are generated, the renewal event is published so the guest can be notified, and the nonce cookie that binds the PIN to the browser is set. Without a valid session the link token is rotated silently: no new PIN is generated, no nonce cookie is set, and the request is rate limited.
          * @summary Renew a guest link
          * @param {GuestLinkRenewRequest} guestLinkRenewRequest 
@@ -10139,6 +10187,15 @@ export const GuestLinksApiFactory = function (configuration?: Configuration, bas
     const localVarFp = GuestLinksApiFp(configuration)
     return {
         /**
+         * End the guest session in this browser by clearing the guest session cookie. The session token itself stays valid until it expires. The request succeeds without a session cookie as well.
+         * @summary Log out of a guest session
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        logoutGuestLink(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.logoutGuestLink(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Renew a guest link. When the request carries a valid guest session cookie (possibly expired), a new link token and PIN are generated, the renewal event is published so the guest can be notified, and the nonce cookie that binds the PIN to the browser is set. Without a valid session the link token is rotated silently: no new PIN is generated, no nonce cookie is set, and the request is rate limited.
          * @summary Renew a guest link
          * @param {GuestLinkRenewRequest} guestLinkRenewRequest 
@@ -10179,6 +10236,17 @@ export const GuestLinksApiFactory = function (configuration?: Configuration, bas
  * @extends {BaseAPI}
  */
 export class GuestLinksApi extends BaseAPI {
+    /**
+     * End the guest session in this browser by clearing the guest session cookie. The session token itself stays valid until it expires. The request succeeds without a session cookie as well.
+     * @summary Log out of a guest session
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GuestLinksApi
+     */
+    public logoutGuestLink(options?: RawAxiosRequestConfig) {
+        return GuestLinksApiFp(this.configuration).logoutGuestLink(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * Renew a guest link. When the request carries a valid guest session cookie (possibly expired), a new link token and PIN are generated, the renewal event is published so the guest can be notified, and the nonce cookie that binds the PIN to the browser is set. Without a valid session the link token is rotated silently: no new PIN is generated, no nonce cookie is set, and the request is rate limited.
      * @summary Renew a guest link
