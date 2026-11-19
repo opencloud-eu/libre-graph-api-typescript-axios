@@ -1158,7 +1158,7 @@ export interface DriveItem {
 export const DriveItemLibreGraphShareTypesEnum = {
     User: 'user',
     Group: 'group',
-    Guest: 'guest',
+    Email: 'email',
     Link: 'link',
     Remote: 'remote'
 } as const;
