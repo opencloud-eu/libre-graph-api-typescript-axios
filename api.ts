@@ -4718,6 +4718,48 @@ export const DrivesApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @summary Alias for creating a drive with \'/v1.0/drives\', but the new drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+         * @param {Drive} drive New space property values
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDriveBeta: async (drive: Drive, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'drive' is not null or undefined
+            assertParamExists('createDriveBeta', 'drive', drive)
+            const localVarPath = `/v1beta1/drives`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(drive, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Delete a specific space
          * @param {string} driveId key: id of drive
          * @param {string} [ifMatch] ETag
@@ -4728,6 +4770,50 @@ export const DrivesApiAxiosParamCreator = function (configuration?: Configuratio
             // verify required parameter 'driveId' is not null or undefined
             assertParamExists('deleteDrive', 'driveId', driveId)
             const localVarPath = `/v1.0/drives/{drive-id}`
+                .replace(`{${"drive-id"}}`, encodeURIComponent(String(driveId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            if (ifMatch != null) {
+                localVarHeaderParameter['If-Match'] = String(ifMatch);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Alias for deleting a drive with \'/v1.0/drives/{drive-id}\'
+         * @param {string} driveId key: id of drive
+         * @param {string} [ifMatch] ETag
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteDriveBeta: async (driveId: string, ifMatch?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'driveId' is not null or undefined
+            assertParamExists('deleteDriveBeta', 'driveId', driveId)
+            const localVarPath = `/v1beta1/drives/{drive-id}`
                 .replace(`{${"drive-id"}}`, encodeURIComponent(String(driveId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4807,6 +4893,56 @@ export const DrivesApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @summary Alias for \'/v1.0/drives/{drive-id}\', but the drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+         * @param {string} driveId key: id of drive
+         * @param {string} [$expand] Expand related entities
+         * @param {Set<GetDriveBetaSelectEnum>} [$select] Select properties to be returned. By default all properties are returned.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDriveBeta: async (driveId: string, $expand?: string, $select?: Set<GetDriveBetaSelectEnum>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'driveId' is not null or undefined
+            assertParamExists('getDriveBeta', 'driveId', driveId)
+            const localVarPath = `/v1beta1/drives/{drive-id}`
+                .replace(`{${"drive-id"}}`, encodeURIComponent(String(driveId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+            if ($expand !== undefined) {
+                localVarQueryParameter['$expand'] = $expand;
+            }
+
+            if ($select) {
+                localVarQueryParameter['$select'] = Array.from($select).join(COLLECTION_FORMATS.csv);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Update the drive
          * @param {string} driveId key: id of drive
          * @param {DriveUpdate} driveUpdate New space values
@@ -4819,6 +4955,52 @@ export const DrivesApiAxiosParamCreator = function (configuration?: Configuratio
             // verify required parameter 'driveUpdate' is not null or undefined
             assertParamExists('updateDrive', 'driveUpdate', driveUpdate)
             const localVarPath = `/v1.0/drives/{drive-id}`
+                .replace(`{${"drive-id"}}`, encodeURIComponent(String(driveId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(driveUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Alias for updating a drive with \'/v1.0/drives/{drive-id}\', but the updated drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+         * @param {string} driveId key: id of drive
+         * @param {DriveUpdate} driveUpdate New space values
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateDriveBeta: async (driveId: string, driveUpdate: DriveUpdate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'driveId' is not null or undefined
+            assertParamExists('updateDriveBeta', 'driveId', driveId)
+            // verify required parameter 'driveUpdate' is not null or undefined
+            assertParamExists('updateDriveBeta', 'driveUpdate', driveUpdate)
+            const localVarPath = `/v1beta1/drives/{drive-id}`
                 .replace(`{${"drive-id"}}`, encodeURIComponent(String(driveId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4876,6 +5058,19 @@ export const DrivesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Alias for creating a drive with \'/v1.0/drives\', but the new drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+         * @param {Drive} drive New space property values
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createDriveBeta(drive: Drive, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Drive>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createDriveBeta(drive, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DrivesApi.createDriveBeta']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Delete a specific space
          * @param {string} driveId key: id of drive
          * @param {string} [ifMatch] ETag
@@ -4886,6 +5081,20 @@ export const DrivesApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteDrive(driveId, ifMatch, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DrivesApi.deleteDrive']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Alias for deleting a drive with \'/v1.0/drives/{drive-id}\'
+         * @param {string} driveId key: id of drive
+         * @param {string} [ifMatch] ETag
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteDriveBeta(driveId: string, ifMatch?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteDriveBeta(driveId, ifMatch, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DrivesApi.deleteDriveBeta']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -4904,6 +5113,21 @@ export const DrivesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Alias for \'/v1.0/drives/{drive-id}\', but the drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+         * @param {string} driveId key: id of drive
+         * @param {string} [$expand] Expand related entities
+         * @param {Set<GetDriveBetaSelectEnum>} [$select] Select properties to be returned. By default all properties are returned.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDriveBeta(driveId: string, $expand?: string, $select?: Set<GetDriveBetaSelectEnum>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Drive>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDriveBeta(driveId, $expand, $select, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DrivesApi.getDriveBeta']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Update the drive
          * @param {string} driveId key: id of drive
          * @param {DriveUpdate} driveUpdate New space values
@@ -4914,6 +5138,20 @@ export const DrivesApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateDrive(driveId, driveUpdate, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DrivesApi.updateDrive']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Alias for updating a drive with \'/v1.0/drives/{drive-id}\', but the updated drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+         * @param {string} driveId key: id of drive
+         * @param {DriveUpdate} driveUpdate New space values
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateDriveBeta(driveId: string, driveUpdate: DriveUpdate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Drive>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateDriveBeta(driveId, driveUpdate, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DrivesApi.updateDriveBeta']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -4938,6 +5176,16 @@ export const DrivesApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
+         * @summary Alias for creating a drive with \'/v1.0/drives\', but the new drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+         * @param {Drive} drive New space property values
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDriveBeta(drive: Drive, options?: RawAxiosRequestConfig): AxiosPromise<Drive> {
+            return localVarFp.createDriveBeta(drive, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Delete a specific space
          * @param {string} driveId key: id of drive
          * @param {string} [ifMatch] ETag
@@ -4946,6 +5194,17 @@ export const DrivesApiFactory = function (configuration?: Configuration, basePat
          */
         deleteDrive(driveId: string, ifMatch?: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.deleteDrive(driveId, ifMatch, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Alias for deleting a drive with \'/v1.0/drives/{drive-id}\'
+         * @param {string} driveId key: id of drive
+         * @param {string} [ifMatch] ETag
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteDriveBeta(driveId: string, ifMatch?: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteDriveBeta(driveId, ifMatch, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4960,6 +5219,18 @@ export const DrivesApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
+         * @summary Alias for \'/v1.0/drives/{drive-id}\', but the drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+         * @param {string} driveId key: id of drive
+         * @param {string} [$expand] Expand related entities
+         * @param {Set<GetDriveBetaSelectEnum>} [$select] Select properties to be returned. By default all properties are returned.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDriveBeta(driveId: string, $expand?: string, $select?: Set<GetDriveBetaSelectEnum>, options?: RawAxiosRequestConfig): AxiosPromise<Drive> {
+            return localVarFp.getDriveBeta(driveId, $expand, $select, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Update the drive
          * @param {string} driveId key: id of drive
          * @param {DriveUpdate} driveUpdate New space values
@@ -4968,6 +5239,17 @@ export const DrivesApiFactory = function (configuration?: Configuration, basePat
          */
         updateDrive(driveId: string, driveUpdate: DriveUpdate, options?: RawAxiosRequestConfig): AxiosPromise<Drive> {
             return localVarFp.updateDrive(driveId, driveUpdate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Alias for updating a drive with \'/v1.0/drives/{drive-id}\', but the updated drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+         * @param {string} driveId key: id of drive
+         * @param {DriveUpdate} driveUpdate New space values
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateDriveBeta(driveId: string, driveUpdate: DriveUpdate, options?: RawAxiosRequestConfig): AxiosPromise<Drive> {
+            return localVarFp.updateDriveBeta(driveId, driveUpdate, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4993,6 +5275,18 @@ export class DrivesApi extends BaseAPI {
 
     /**
      * 
+     * @summary Alias for creating a drive with \'/v1.0/drives\', but the new drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+     * @param {Drive} drive New space property values
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DrivesApi
+     */
+    public createDriveBeta(drive: Drive, options?: RawAxiosRequestConfig) {
+        return DrivesApiFp(this.configuration).createDriveBeta(drive, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Delete a specific space
      * @param {string} driveId key: id of drive
      * @param {string} [ifMatch] ETag
@@ -5002,6 +5296,19 @@ export class DrivesApi extends BaseAPI {
      */
     public deleteDrive(driveId: string, ifMatch?: string, options?: RawAxiosRequestConfig) {
         return DrivesApiFp(this.configuration).deleteDrive(driveId, ifMatch, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Alias for deleting a drive with \'/v1.0/drives/{drive-id}\'
+     * @param {string} driveId key: id of drive
+     * @param {string} [ifMatch] ETag
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DrivesApi
+     */
+    public deleteDriveBeta(driveId: string, ifMatch?: string, options?: RawAxiosRequestConfig) {
+        return DrivesApiFp(this.configuration).deleteDriveBeta(driveId, ifMatch, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5019,6 +5326,20 @@ export class DrivesApi extends BaseAPI {
 
     /**
      * 
+     * @summary Alias for \'/v1.0/drives/{drive-id}\', but the drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+     * @param {string} driveId key: id of drive
+     * @param {string} [$expand] Expand related entities
+     * @param {Set<GetDriveBetaSelectEnum>} [$select] Select properties to be returned. By default all properties are returned.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DrivesApi
+     */
+    public getDriveBeta(driveId: string, $expand?: string, $select?: Set<GetDriveBetaSelectEnum>, options?: RawAxiosRequestConfig) {
+        return DrivesApiFp(this.configuration).getDriveBeta(driveId, $expand, $select, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Update the drive
      * @param {string} driveId key: id of drive
      * @param {DriveUpdate} driveUpdate New space values
@@ -5029,6 +5350,19 @@ export class DrivesApi extends BaseAPI {
     public updateDrive(driveId: string, driveUpdate: DriveUpdate, options?: RawAxiosRequestConfig) {
         return DrivesApiFp(this.configuration).updateDrive(driveId, driveUpdate, options).then((request) => request(this.axios, this.basePath));
     }
+
+    /**
+     * 
+     * @summary Alias for updating a drive with \'/v1.0/drives/{drive-id}\', but the updated drive is returned in the v1beta1 format, with grantedToV2 and unified role IDs in its permissions
+     * @param {string} driveId key: id of drive
+     * @param {DriveUpdate} driveUpdate New space values
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DrivesApi
+     */
+    public updateDriveBeta(driveId: string, driveUpdate: DriveUpdate, options?: RawAxiosRequestConfig) {
+        return DrivesApiFp(this.configuration).updateDriveBeta(driveId, driveUpdate, options).then((request) => request(this.axios, this.basePath));
+    }
 }
 
 /**
@@ -5038,6 +5372,13 @@ export const GetDriveSelectEnum = {
     LibreGraphHasTrashedItems: '@libre.graph.hasTrashedItems'
 } as const;
 export type GetDriveSelectEnum = typeof GetDriveSelectEnum[keyof typeof GetDriveSelectEnum];
+/**
+ * @export
+ */
+export const GetDriveBetaSelectEnum = {
+    LibreGraphHasTrashedItems: '@libre.graph.hasTrashedItems'
+} as const;
+export type GetDriveBetaSelectEnum = typeof GetDriveBetaSelectEnum[keyof typeof GetDriveBetaSelectEnum];
 
 
 /**
