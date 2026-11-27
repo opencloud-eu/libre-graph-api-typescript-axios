@@ -13700,6 +13700,120 @@ export class UserAppRoleAssignmentApi extends BaseAPI {
 
 
 /**
+ * UserDriveApi - axios parameter creator
+ * @export
+ */
+export const UserDriveApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get the personal Drive of the user identified by `user-id`.  Modeled on the MS Graph get drive endpoint (https://learn.microsoft.com/en-us/graph/api/drive-get). 
+         * @summary Get a user\'s drive.
+         * @param {string} userId key: id or name of user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserDrive: async (userId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('getUserDrive', 'userId', userId)
+            const localVarPath = `/v1.0/users/{user-id}/drive`
+                .replace(`{${"user-id"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication openId required
+
+            // authentication basicAuth required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserDriveApi - functional programming interface
+ * @export
+ */
+export const UserDriveApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserDriveApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Get the personal Drive of the user identified by `user-id`.  Modeled on the MS Graph get drive endpoint (https://learn.microsoft.com/en-us/graph/api/drive-get). 
+         * @summary Get a user\'s drive.
+         * @param {string} userId key: id or name of user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserDrive(userId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Drive>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserDrive(userId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserDriveApi.getUserDrive']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * UserDriveApi - factory interface
+ * @export
+ */
+export const UserDriveApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserDriveApiFp(configuration)
+    return {
+        /**
+         * Get the personal Drive of the user identified by `user-id`.  Modeled on the MS Graph get drive endpoint (https://learn.microsoft.com/en-us/graph/api/drive-get). 
+         * @summary Get a user\'s drive.
+         * @param {string} userId key: id or name of user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserDrive(userId: string, options?: RawAxiosRequestConfig): AxiosPromise<Drive> {
+            return localVarFp.getUserDrive(userId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UserDriveApi - object-oriented interface
+ * @export
+ * @class UserDriveApi
+ * @extends {BaseAPI}
+ */
+export class UserDriveApi extends BaseAPI {
+    /**
+     * Get the personal Drive of the user identified by `user-id`.  Modeled on the MS Graph get drive endpoint (https://learn.microsoft.com/en-us/graph/api/drive-get). 
+     * @summary Get a user\'s drive.
+     * @param {string} userId key: id or name of user
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserDriveApi
+     */
+    public getUserDrive(userId: string, options?: RawAxiosRequestConfig) {
+        return UserDriveApiFp(this.configuration).getUserDrive(userId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * UserPhotoApi - axios parameter creator
  * @export
  */
